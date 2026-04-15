@@ -640,7 +640,7 @@ label {
     </ol>
     <div class="autosave-note">
       <span class="save-icon" aria-hidden="true">&#10003;</span>
-      Auto-saves as you go — your filters and company list are stored in this browser and will be here when you return. Clearing browser data will reset it.
+      Auto-saves as you go — your filters and company list are stored in this browser and will be here when you return. Clearing cookies/browser data or using incognito/private mode will not retain your data — use Export to keep a backup.
     </div>
   </div>
 
@@ -774,7 +774,7 @@ label {
     <!-- Single add -->
     <div class="add-row">
       <input id="addName" placeholder="Company name">
-      <input id="addSlug" placeholder="LinkedIn slug (optional)">
+      <input id="addId" placeholder="Company ID" inputmode="numeric" pattern="[0-9]*">
       <button class="btn btn-accent" id="addBtn">+ Add</button>
     </div>
 
@@ -789,7 +789,7 @@ label {
     <div class="manage-list">
       <div class="manage-header">
         <div class="section-title" style="margin-bottom:4px">Manage List</div>
-        <p class="manage-note">Your list auto-saves in this browser. Use export to back up or share your list as a JSON file, and import to load one.</p>
+        <p class="manage-note">Your list auto-saves in this browser automatically. Export downloads a backup file you can share or re-import later. Data won't persist in incognito/private browsing or if you clear your browser data — export first to be safe.</p>
       </div>
       <div class="toolbar">
         <button class="btn btn-ghost" id="exportBtn" title="Download company list as a JSON file">Export List</button>
@@ -924,9 +924,7 @@ function render() {
     var inputClass = 'id-input' + (hasId ? ' filled' : '');
 
     var linkHtml = '';
-    if (c.slug) {
-      linkHtml = '<a class="company-link" href="' + esc(companyUrl(c.slug)) + '" target="_blank" rel="noopener noreferrer">open&nbsp;&#8599;</a>';
-    } else if (c.id) {
+    if (c.id) {
       linkHtml = '<a class="company-link" href="' + esc(companyUrl(c.id)) + '" target="_blank" rel="noopener noreferrer">verify&nbsp;&#8599;</a>';
     }
 
@@ -978,17 +976,18 @@ function removeCompany(index) {
 
 function addCompany() {
   var nameInput = document.getElementById('addName');
-  var slugInput = document.getElementById('addSlug');
+  var idInput = document.getElementById('addId');
   var name = nameInput.value.trim();
-  var slug = slugInput.value.trim();
-  if (!name) return;
+  var id = sanitizeId(idInput.value);
+  if (!name && !id) return;
 
-  companies.push({ name: name, slug: slug, id: '' });
+  var displayName = name || (id ? 'Company #' + id : '');
+  companies.push({ name: displayName, slug: '', id: id });
   nameInput.value = '';
-  slugInput.value = '';
+  idInput.value = '';
   saveState();
   render();
-  toast('Added "' + name + '"');
+  toast('Added "' + displayName + '"');
 }
 
 function bulkAddIds() {
@@ -1234,7 +1233,7 @@ document.getElementById('addBtn').addEventListener('click', addCompany);
 document.getElementById('addName').addEventListener('keydown', function (e) {
   if (e.key === 'Enter') addCompany();
 });
-document.getElementById('addSlug').addEventListener('keydown', function (e) {
+document.getElementById('addId').addEventListener('keydown', function (e) {
   if (e.key === 'Enter') addCompany();
 });
 
