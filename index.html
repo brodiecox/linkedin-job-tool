@@ -151,7 +151,7 @@ body {
 }
 
 /* ── Sections ── */
-.section { margin-bottom: 28px; }
+.section { margin-bottom: 28px; position: relative; }
 .section-title {
   font-family: var(--font-display);
   font-size: 11px;
@@ -210,7 +210,7 @@ body {
 .help-panel {
   position: absolute;
   top: calc(100% + 8px);
-  left: 0;
+  right: 0;
   z-index: 100;
   min-width: 340px;
   max-width: min(460px, calc(100vw - 40px));
@@ -221,6 +221,9 @@ body {
   font-size: 12px;
   line-height: 1.8;
   color: var(--text-secondary);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   opacity: 0;
   transform: translateY(-4px);
@@ -255,6 +258,15 @@ body {
 }
 .label-row label {
   margin-bottom: 0;
+}
+.label-row .help-wrap {
+  position: static;
+}
+.label-row .help-panel {
+  left: 0;
+  right: auto;
+  top: auto;
+  margin-top: 8px;
 }
 
 /* ── Form Controls ── */
@@ -465,7 +477,24 @@ label {
   .add-row { grid-template-columns: 1fr; }
   .company-row { grid-template-columns: 1fr 100px 28px; gap: 6px; }
   .output-header { flex-direction: column; align-items: flex-start; }
-  .help-panel { left: auto; right: 0; min-width: 280px; }
+  .section-title { flex-wrap: wrap; }
+  .help-wrap { position: static; width: 100%; }
+  .help-panel {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+    margin-top: 10px;
+    box-shadow: none;
+    border-color: var(--border-subtle);
+    transform: none;
+  }
+  .help-panel:not(.open) {
+    display: none;
+  }
   .getting-started { padding: 14px 16px; }
 }
 
@@ -948,17 +977,17 @@ function buildUrl() {
 
   saveState();
 
-  var params = new URLSearchParams();
-  if (keyword) params.set('keywords', keyword);
-  if (fC) params.set('f_C', fC);
-  if (geoId) params.set('geoId', geoId);
-  if (timeframe) params.set('f_TPR', timeframe);
-  if (experience) params.set('f_E', experience);
-  if (jobType) params.set('f_JT', jobType);
-  if (workplace) params.set('f_WT', workplace);
-  if (sort) params.set('sortBy', sort);
+  var parts = [];
+  if (keyword) parts.push('keywords=' + encodeURIComponent(keyword).replace(/%20/g, '+'));
+  if (fC) parts.push('f_C=' + fC);
+  if (geoId) parts.push('geoId=' + geoId);
+  if (timeframe) parts.push('f_TPR=' + encodeURIComponent(timeframe));
+  if (experience) parts.push('f_E=' + encodeURIComponent(experience));
+  if (jobType) parts.push('f_JT=' + encodeURIComponent(jobType));
+  if (workplace) parts.push('f_WT=' + encodeURIComponent(workplace));
+  if (sort) parts.push('sortBy=' + encodeURIComponent(sort));
 
-  var url = LINKEDIN_SEARCH_BASE + params.toString();
+  var url = LINKEDIN_SEARCH_BASE + parts.join('&');
 
   var display = document.getElementById('urlDisplay');
   var openBtn = document.getElementById('openBtn');
