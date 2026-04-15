@@ -200,13 +200,25 @@ button, a, input, select, textarea {
   border-radius: 10px;
 }
 
-/* ── Help Icon & Panel ── */
-.help-wrap {
-  position: relative;
-  display: inline-flex;
+/* ── Help Collapsible ── */
+.help-trigger {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  color: var(--accent);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: border-color var(--transition);
+  display: flex;
   align-items: center;
+  gap: 8px;
 }
-.help-icon {
+.help-trigger:hover { border-color: var(--accent-border); }
+.help-trigger .help-qmark {
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -219,80 +231,48 @@ button, a, input, select, textarea {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: all var(--transition);
-  line-height: 1;
   flex-shrink: 0;
 }
-.help-icon:hover {
-  background: rgba(34, 211, 238, 0.2);
-  border-color: var(--accent);
-}
-.help-icon[aria-expanded="true"] {
+.help-trigger .help-label { flex: 1; }
+.help-trigger .arrow { transition: transform var(--transition); font-size: 10px; }
+.help-trigger[aria-expanded="true"] .arrow { transform: rotate(90deg); }
+.help-trigger[aria-expanded="true"] .help-qmark {
   background: var(--accent);
   color: var(--bg-primary);
   border-color: var(--accent);
 }
-.help-panel {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  z-index: 100;
-  min-width: 340px;
-  max-width: min(460px, calc(100vw - 40px));
-  background: var(--bg-elevated);
-  border: 1px solid var(--accent-border);
+.help-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 300ms ease, margin 300ms ease, opacity 200ms ease;
+  opacity: 0;
+}
+.help-content.open {
+  max-height: 600px;
+  margin-top: 12px;
+  opacity: 1;
+}
+.help-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
   padding: 16px;
   font-size: 12px;
   line-height: 1.8;
   color: var(--text-secondary);
-  text-transform: none;
-  letter-spacing: 0;
-  font-weight: 400;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  transform: translateY(-4px);
-  pointer-events: none;
-  transition: opacity 150ms ease, transform 150ms ease;
 }
-.help-panel.open {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-.help-panel strong { color: var(--text-primary); font-weight: 600; }
-.help-panel code {
+.help-box strong { color: var(--text-primary); font-weight: 600; }
+.help-box code {
   background: var(--bg-tertiary);
   padding: 2px 6px;
   border-radius: 3px;
   color: var(--success);
   font-size: 11px;
 }
-.help-panel .divider {
+.help-box .divider {
   border-top: 1px solid var(--border-subtle);
   margin: 10px 0;
   padding-top: 10px;
-}
-
-/* ── Label with help ── */
-.label-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
-}
-.label-row label {
-  margin-bottom: 0;
-}
-.label-row .help-wrap {
-  position: static;
-}
-.label-row .help-panel {
-  left: 0;
-  right: auto;
-  top: auto;
-  margin-top: 8px;
 }
 
 /* ── Form Controls ── */
@@ -434,7 +414,18 @@ label {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: 16px;
+}
+.manage-list {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+.manage-header { margin-bottom: 10px; }
+.manage-note {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-top: 2px;
 }
 
 /* ── Output ── */
@@ -585,26 +576,10 @@ label {
   .url-display { font-size: 10px; padding: 12px; line-height: 1.6; }
   .includes-text { font-size: 10px; }
 
-  /* Help panels — inline flow on mobile */
-  .section-title { flex-wrap: wrap; }
-  .section-title .help-wrap { position: static; width: 100%; }
-  .label-row .help-wrap { position: static; width: auto; }
-  .help-panel {
-    position: relative;
-    top: auto;
-    right: auto;
-    left: auto;
-    min-width: 0;
-    max-width: none;
-    width: 100%;
-    margin-top: 10px;
-    box-shadow: none;
-    border-color: var(--border-subtle);
-    transform: none;
-    font-size: 11px;
-  }
-  .help-panel:not(.open) { display: none; }
-  .help-panel code { font-size: 10px; }
+  /* Help collapsibles on mobile */
+  .help-trigger { font-size: 11px; padding: 10px 12px; min-height: 44px; }
+  .help-box { font-size: 11px; padding: 14px; }
+  .help-box code { font-size: 10px; }
 
   /* Toast — centered on mobile */
   .toast {
@@ -665,7 +640,7 @@ label {
     </ol>
     <div class="autosave-note">
       <span class="save-icon" aria-hidden="true">&#10003;</span>
-      Your settings and company list auto-save in your browser — they'll be here when you come back.
+      Auto-saves as you go — your filters and company list are stored in this browser and will be here when you return. Clearing browser data will reset it.
     </div>
   </div>
 
@@ -690,23 +665,7 @@ label {
         </select>
       </div>
       <div>
-        <div class="label-row">
-          <label for="geoId">Location (Geo ID)</label>
-          <div class="help-wrap">
-            <button class="help-icon" aria-expanded="false" aria-controls="geoid-help" aria-label="Show common Geo IDs" title="Common Geo IDs">?</button>
-            <div class="help-panel" id="geoid-help" role="region">
-              <p><strong>Countries:</strong></p>
-              <p><code>101452733</code> Australia &middot; <code>101165590</code> United Kingdom &middot; <code>103644278</code> United States &middot; <code>101174742</code> Canada &middot; <code>102095887</code> New Zealand &middot; <code>102713980</code> India &middot; <code>101282230</code> Germany</p>
-              <div class="divider">
-                <p><strong>Cities:</strong></p>
-                <p><code>100009818</code> Sydney &middot; <code>103116251</code> Melbourne &middot; <code>104769905</code> Brisbane &middot; <code>105243367</code> Perth &middot; <code>102257491</code> London &middot; <code>102571732</code> New York &middot; <code>100727388</code> San Francisco</p>
-              </div>
-              <div class="divider">
-                <p>Find more: search LinkedIn Jobs for a location, then copy the <code>geoId=</code> value from the URL.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <label for="geoId">Location (Geo ID)</label>
         <input id="geoId" type="text" placeholder="e.g. 101452733">
       </div>
       <div>
@@ -749,6 +708,26 @@ label {
         </select>
       </div>
     </div>
+
+    <!-- Geo ID Reference -->
+    <button class="help-trigger" aria-expanded="false" aria-controls="geoid-help" style="margin-top:12px">
+      <span class="help-qmark">?</span>
+      <span class="help-label">Common Geo IDs</span>
+      <span class="arrow" aria-hidden="true">&#9654;</span>
+    </button>
+    <div class="help-content" id="geoid-help" role="region">
+      <div class="help-box">
+        <p><strong>Countries:</strong></p>
+        <p><code>101452733</code> Australia &middot; <code>101165590</code> United Kingdom &middot; <code>103644278</code> United States &middot; <code>101174742</code> Canada &middot; <code>102095887</code> New Zealand &middot; <code>102713980</code> India &middot; <code>101282230</code> Germany</p>
+        <div class="divider">
+          <p><strong>Cities:</strong></p>
+          <p><code>100009818</code> Sydney &middot; <code>103116251</code> Melbourne &middot; <code>104769905</code> Brisbane &middot; <code>105243367</code> Perth &middot; <code>102257491</code> London &middot; <code>102571732</code> New York &middot; <code>100727388</code> San Francisco</p>
+        </div>
+        <div class="divider">
+          <p>Find more: search LinkedIn Jobs for a location, then copy the <code>geoId=</code> value from the URL.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Companies -->
@@ -756,33 +735,31 @@ label {
     <div class="section-title">
       Company Filter
       <span class="count" id="companyCount">0 / 0</span>
-      <div class="help-wrap">
-        <button class="help-icon" aria-expanded="false" aria-controls="companyid-help" aria-label="How to find company IDs" title="How to find company IDs">?</button>
-        <div class="help-panel" id="companyid-help" role="region">
-          <p><strong>Option A — From the company filter (fastest):</strong></p>
-          <p>1. Go to LinkedIn Jobs and type a company name into the <strong>Company</strong> filter dropdown</p>
-          <p>2. Select it, then look at the URL — copy the number after <code>f_C=</code></p>
-          <p>3. Paste it here. Repeat for each company.</p>
-          <div class="divider">
-            <p><strong>Option B — From the company page:</strong></p>
-            <p>1. Visit the company's LinkedIn page</p>
-            <p>2. Click <strong>"See all jobs"</strong> or <strong>"See all employees"</strong></p>
-            <p>3. The ID appears in the URL after <code>f_C=</code> or <code>currentCompany=</code></p>
-          </div>
-          <div class="divider">
-            <p><strong>Option C — Direct URL check:</strong></p>
-            <p>Visit <code>linkedin.com/company/[ID]</code> to verify any numeric ID — it redirects to the company page.</p>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- Toolbar -->
-    <div class="toolbar">
-      <button class="btn btn-ghost" id="exportBtn" title="Export company list as JSON">Export</button>
-      <button class="btn btn-ghost" id="importBtn" title="Import company list from JSON">Import</button>
-      <input type="file" id="importFile" accept=".json" style="display:none">
-      <button class="btn btn-danger" id="clearBtn" title="Remove all companies">Clear All</button>
+    <!-- How to find IDs -->
+    <button class="help-trigger" aria-expanded="false" aria-controls="companyid-help" style="margin-bottom:12px">
+      <span class="help-qmark">?</span>
+      <span class="help-label">How to find a company's numeric ID</span>
+      <span class="arrow" aria-hidden="true">&#9654;</span>
+    </button>
+    <div class="help-content" id="companyid-help" role="region">
+      <div class="help-box" style="margin-bottom:12px">
+        <p><strong>Option A — From the company filter (fastest):</strong></p>
+        <p>1. Go to LinkedIn Jobs and type a company name into the <strong>Company</strong> filter dropdown</p>
+        <p>2. Select it, then look at the URL — copy the number after <code>f_C=</code></p>
+        <p>3. Paste it here. Repeat for each company.</p>
+        <div class="divider">
+          <p><strong>Option B — From the company page:</strong></p>
+          <p>1. Visit the company's LinkedIn page</p>
+          <p>2. Click <strong>"See all jobs"</strong> or <strong>"See all employees"</strong></p>
+          <p>3. The ID appears in the URL after <code>f_C=</code> or <code>currentCompany=</code></p>
+        </div>
+        <div class="divider">
+          <p><strong>Option C — Direct URL check:</strong></p>
+          <p>Visit <code>linkedin.com/company/[ID]</code> to verify any numeric ID — it redirects to the company page.</p>
+        </div>
+      </div>
     </div>
 
     <!-- Bulk add -->
@@ -805,6 +782,20 @@ label {
     <div class="company-list" id="companyList" role="list" aria-label="Company list">
       <div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12px">
         No companies added yet. Use Bulk Add or + Add above.
+      </div>
+    </div>
+
+    <!-- Manage list -->
+    <div class="manage-list">
+      <div class="manage-header">
+        <div class="section-title" style="margin-bottom:4px">Manage List</div>
+        <p class="manage-note">Your list auto-saves in this browser. Use export to back up or share your list as a JSON file, and import to load one.</p>
+      </div>
+      <div class="toolbar">
+        <button class="btn btn-ghost" id="exportBtn" title="Download company list as a JSON file">Export List</button>
+        <button class="btn btn-ghost" id="importBtn" title="Load a company list from a JSON file">Import List</button>
+        <input type="file" id="importFile" accept=".json" style="display:none">
+        <button class="btn btn-danger" id="clearBtn" title="Remove all companies from your list">Clear All</button>
       </div>
     </div>
   </div>
@@ -1193,46 +1184,23 @@ function toast(msg) {
 }
 
 /* ══════════════════════════════════════
-   Help Panel Toggle
+   Help Collapsible Toggle
    ══════════════════════════════════════ */
-function closeAllHelpPanels(except) {
-  document.querySelectorAll('.help-icon').forEach(function (icon) {
-    if (icon === except) return;
-    icon.setAttribute('aria-expanded', 'false');
-    var panel = document.getElementById(icon.getAttribute('aria-controls'));
-    if (panel) panel.classList.remove('open');
-  });
+function toggleHelp(trigger) {
+  var content = document.getElementById(trigger.getAttribute('aria-controls'));
+  if (!content) return;
+  var isOpen = content.classList.contains('open');
+  trigger.setAttribute('aria-expanded', String(!isOpen));
+  content.classList.toggle('open', !isOpen);
 }
-
-function toggleHelpPanel(icon) {
-  var panelId = icon.getAttribute('aria-controls');
-  var panel = document.getElementById(panelId);
-  if (!panel) return;
-
-  var isOpen = panel.classList.contains('open');
-  closeAllHelpPanels(isOpen ? null : icon);
-
-  icon.setAttribute('aria-expanded', String(!isOpen));
-  panel.classList.toggle('open', !isOpen);
-}
-
-// Close help panels when clicking outside
-document.addEventListener('click', function (e) {
-  if (!e.target.closest('.help-wrap')) {
-    closeAllHelpPanels(null);
-  }
-});
 
 /* ══════════════════════════════════════
    Event Listeners (delegated where possible)
    ══════════════════════════════════════ */
 
-// Help icons
-document.querySelectorAll('.help-icon').forEach(function (icon) {
-  icon.addEventListener('click', function (e) {
-    e.stopPropagation();
-    toggleHelpPanel(icon);
-  });
+// Help collapsibles
+document.querySelectorAll('.help-trigger').forEach(function (trigger) {
+  trigger.addEventListener('click', function () { toggleHelp(trigger); });
 });
 
 // Param fields — single handler via event delegation
