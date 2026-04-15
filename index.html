@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="Build custom LinkedIn job search URLs with bulk company filters, time windows, and advanced parameters. Skip the tedious dropdown — paste company IDs and go.">
 <meta name="theme-color" content="#0c0c0e">
 <title>LinkedIn Job Search URL Builder</title>
@@ -47,6 +47,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
 ::selection { background: var(--accent); color: var(--bg-primary); }
@@ -54,6 +55,12 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg-secondary); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ── Touch & Mobile ── */
+button, a, input, select, textarea {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
 
 /* ── Layout ── */
 .app { max-width: 800px; margin: 0 auto; padding: 32px 20px 80px; }
@@ -84,6 +91,25 @@ body {
   color: var(--text-muted);
   line-height: 1.5;
   max-width: 560px;
+}
+
+/* ── Privacy Banner ── */
+.privacy-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--success-dim);
+  border: 1px solid var(--success-border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: var(--success);
+  line-height: 1.4;
+}
+.privacy-banner .shield {
+  font-size: 15px;
+  flex-shrink: 0;
 }
 
 /* ── Getting Started ── */
@@ -278,7 +304,7 @@ input, select, textarea {
   color: var(--text-primary);
   padding: 10px 12px;
   border-radius: var(--radius);
-  font-size: 13px;
+  font-size: 16px; /* prevents iOS zoom on focus */
   outline: none;
   transition: border-color var(--transition);
 }
@@ -309,6 +335,7 @@ label {
   overflow-y: auto;
   border-radius: var(--radius);
   border: 1px solid var(--border-subtle);
+  -webkit-overflow-scrolling: touch;
 }
 .company-row {
   display: grid;
@@ -391,6 +418,11 @@ label {
 }
 .add-row input { font-size: 12px; padding: 8px 12px; }
 .bulk-row { margin-bottom: 12px; }
+.bulk-row .bulk-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+}
 .bulk-row textarea {
   font-size: 12px;
   padding: 8px 12px;
@@ -470,13 +502,90 @@ label {
 .footer a { color: var(--accent); text-decoration: none; }
 .footer a:hover { text-decoration: underline; }
 
-/* ── Responsive ── */
+/* ══════════════════════════════════════
+   Desktop override (> 600px)
+   Reset font-size on inputs back to 13px
+   (16px base prevents iOS zoom, desktop can be smaller)
+   ══════════════════════════════════════ */
+@media (min-width: 601px) {
+  input, select, textarea { font-size: 13px; }
+}
+
+/* ══════════════════════════════════════
+   Mobile (max-width: 600px)
+   ══════════════════════════════════════ */
 @media (max-width: 600px) {
-  .app { padding: 20px 16px 60px; }
-  .params-grid { grid-template-columns: 1fr; }
-  .add-row { grid-template-columns: 1fr; }
-  .company-row { grid-template-columns: 1fr 100px 28px; gap: 6px; }
-  .output-header { flex-direction: column; align-items: flex-start; }
+  /* Layout */
+  .app { padding: 16px 14px 60px; }
+  .section { margin-bottom: 20px; }
+  .header { margin-bottom: 28px; }
+  .header p { font-size: 12px; }
+
+  /* Privacy banner */
+  .privacy-banner { font-size: 11px; padding: 8px 12px; margin-bottom: 12px; }
+
+  /* Getting started */
+  .getting-started { padding: 12px 14px; margin-bottom: 20px; }
+  .getting-started li { font-size: 11px; gap: 8px; }
+  .getting-started li::before { width: 18px; height: 18px; font-size: 9px; }
+  .getting-started .autosave-note { font-size: 10px; }
+
+  /* Params grid — single column, tighter */
+  .params-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* Company row — wider ID input for fat fingers */
+  .company-row {
+    grid-template-columns: 1fr 110px 36px;
+    gap: 6px;
+    padding: 8px 10px;
+  }
+  .company-name { font-size: 11px; }
+  .company-link { font-size: 9px; }
+  .id-input { font-size: 11px !important; padding: 6px 6px !important; }
+  .icon-btn {
+    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Bulk add — stack vertically */
+  .bulk-row .bulk-inner {
+    grid-template-columns: 1fr;
+  }
+  .bulk-row .bulk-inner .btn { width: 100%; }
+
+  /* Single add — stack vertically */
+  .add-row {
+    grid-template-columns: 1fr;
+  }
+  .add-row .btn { width: 100%; }
+
+  /* Toolbar — equal width buttons */
+  .toolbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+  .toolbar .btn { text-align: center; padding: 10px 8px; }
+
+  /* All buttons — minimum 44px touch target */
+  .btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+
+  /* Inputs — minimum 44px touch target */
+  input, select, textarea { min-height: 44px; }
+
+  /* Output */
+  .output-header { flex-direction: column; align-items: stretch; }
+  .output-header .section-title { margin-bottom: 4px; }
+  .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .btn-group .btn { text-align: center; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+  .url-display { font-size: 10px; padding: 12px; line-height: 1.6; }
+  .includes-text { font-size: 10px; }
+
+  /* Help panels — inline flow on mobile */
   .section-title { flex-wrap: wrap; }
   .help-wrap { position: static; width: 100%; }
   .help-panel {
@@ -491,11 +600,29 @@ label {
     box-shadow: none;
     border-color: var(--border-subtle);
     transform: none;
+    font-size: 11px;
   }
-  .help-panel:not(.open) {
-    display: none;
+  .help-panel:not(.open) { display: none; }
+  .help-panel code { font-size: 10px; }
+
+  /* Toast — centered on mobile */
+  .toast {
+    left: 14px;
+    right: 14px;
+    bottom: 16px;
+    text-align: center;
+    font-size: 11px;
   }
-  .getting-started { padding: 14px 16px; }
+
+  /* Footer */
+  .footer { margin-top: 32px; font-size: 10px; }
+}
+
+/* Extra small (320px) */
+@media (max-width: 374px) {
+  .params-grid { grid-template-columns: 1fr; }
+  .company-row { grid-template-columns: 1fr 90px 32px; }
+  .toolbar { grid-template-columns: 1fr 1fr; }
 }
 
 /* ── Animations ── */
@@ -503,11 +630,12 @@ label {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.getting-started { animation: fadeIn 400ms ease both; }
+.privacy-banner { animation: fadeIn 400ms ease both; }
+.getting-started { animation: fadeIn 400ms ease both; animation-delay: 50ms; }
 .section { animation: fadeIn 400ms ease both; }
-.section:nth-child(1) { animation-delay: 50ms; }
-.section:nth-child(2) { animation-delay: 100ms; }
-.section:nth-child(3) { animation-delay: 150ms; }
+.section:nth-child(1) { animation-delay: 100ms; }
+.section:nth-child(2) { animation-delay: 150ms; }
+.section:nth-child(3) { animation-delay: 200ms; }
 </style>
 </head>
 <body>
@@ -519,6 +647,12 @@ label {
     <h1>LinkedIn Job Search <span>URL Builder</span></h1>
     <p>Build custom job search URLs with bulk company filters. Skip the tedious one-by-one dropdown.</p>
   </header>
+
+  <!-- Privacy Banner -->
+  <div class="privacy-banner" role="status">
+    <span class="shield" aria-hidden="true">&#128274;</span>
+    100% private — this tool runs entirely in your browser. Nothing is sent to any server.
+  </div>
 
   <!-- Getting Started -->
   <div class="getting-started">
@@ -653,7 +787,7 @@ label {
     <!-- Bulk add -->
     <div class="bulk-row">
       <label for="bulkIds">Bulk Add IDs <span style="color:var(--text-muted);text-transform:none;letter-spacing:0;font-weight:400">(comma-separated)</span></label>
-      <div style="display:grid;grid-template-columns:1fr auto;gap:8px">
+      <div class="bulk-inner">
         <textarea id="bulkIds" rows="1" placeholder="e.g. 8900,42797345,1319529,44793"></textarea>
         <button class="btn btn-accent" id="bulkAddBtn" style="align-self:end">Add All</button>
       </div>
@@ -693,7 +827,7 @@ label {
 
   <!-- Footer -->
   <footer class="footer">
-    <p>This tool runs entirely in your browser. Company data is stored in localStorage — nothing is sent to any server.</p>
+    <p>This tool runs entirely in your browser. No data is sent to any server. No analytics, no cookies, no tracking.</p>
     <p style="margin-top:6px">
       <a href="https://github.com/brodiecox/linkedin-job-tool" target="_blank" rel="noopener noreferrer">View on GitHub</a> ·
       Not affiliated with LinkedIn.

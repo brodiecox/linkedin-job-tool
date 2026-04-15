@@ -4,6 +4,8 @@ A browser-based tool for building custom LinkedIn job search URLs with bulk comp
 
 **Zero dependencies. Single HTML file. Runs offline. Works on mobile.**
 
+> **100% private** — this tool runs entirely in your browser. No data is sent to any server. No analytics, no cookies, no tracking.
+
 ## Why?
 
 LinkedIn's job search lets you filter by company, but adding companies one at a time through the dropdown is painfully slow — especially if you're targeting 20, 50, or 100+ companies in a specific industry.
