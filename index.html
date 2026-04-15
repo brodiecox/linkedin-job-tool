@@ -10,33 +10,52 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+
+/* ══════════════════════════════════════
+   Design Tokens
+   ══════════════════════════════════════ */
 :root {
-  --bg-primary: #0c0c0e;
+  /* Backgrounds (darkest → lightest) */
+  --bg-primary:   #0c0c0e;
   --bg-secondary: #121214;
-  --bg-tertiary: #18181b;
-  --bg-elevated: #1e1e22;
-  --border: #2a2a2e;
-  --border-subtle: #1f1f23;
-  --text-primary: #e8e8ec;
+  --bg-tertiary:  #18181b;
+  --bg-elevated:  #1e1e22;
+
+  /* Borders */
+  --border:        #2a2a2e;
+  --border-subtle:  #1f1f23;
+
+  /* Text (brightest → dimmest) */
+  --text-primary:   #e8e8ec;
   --text-secondary: #b0b0b8;
-  --text-muted: #78787f;
-  --accent: #22d3ee;
-  --accent-dim: rgba(34, 211, 238, 0.12);
+  --text-muted:     #78787f;
+
+  /* Accent */
+  --accent:        #22d3ee;
+  --accent-dim:    rgba(34, 211, 238, 0.12);
   --accent-border: rgba(34, 211, 238, 0.25);
-  --success: #34d399;
-  --success-dim: rgba(52, 211, 153, 0.12);
+
+  /* Status */
+  --success:        #34d399;
+  --success-dim:    rgba(52, 211, 153, 0.12);
   --success-border: rgba(52, 211, 153, 0.25);
-  --warning: #fbbf24;
-  --danger: #f87171;
-  --danger-dim: rgba(248, 113, 113, 0.1);
-  --font-mono: 'IBM Plex Mono', 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --warning:        #fbbf24;
+  --danger:         #f87171;
+  --danger-dim:     rgba(248, 113, 113, 0.1);
+
+  /* Typography */
+  --font-mono:    'IBM Plex Mono', 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
   --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
-  --radius: 8px;
-  --radius-sm: 5px;
+
+  /* Spacing & Shape */
+  --radius:     8px;
   --transition: 150ms ease;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* ══════════════════════════════════════
+   Reset & Base
+   ══════════════════════════════════════ */
+*  { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
@@ -51,22 +70,29 @@ body {
 }
 
 ::selection { background: var(--accent); color: var(--bg-primary); }
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-secondary); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb  { background: var(--border); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-/* ── Touch & Mobile ── */
 button, a, input, select, textarea {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
 
-/* ── Layout ── */
+/* ══════════════════════════════════════
+   Layout
+   ══════════════════════════════════════ */
 .app { max-width: 800px; margin: 0 auto; padding: 32px 20px 80px; }
 
-/* ── Header ── */
-.header { margin-bottom: 36px; position: relative; }
+/* ══════════════════════════════════════
+   Header
+   ══════════════════════════════════════ */
+.header {
+  margin-bottom: 36px;
+  position: relative;
+}
 .header::after {
   content: '';
   position: absolute;
@@ -93,7 +119,9 @@ button, a, input, select, textarea {
   max-width: 560px;
 }
 
-/* ── Privacy Banner ── */
+/* ══════════════════════════════════════
+   Privacy Banner
+   ══════════════════════════════════════ */
 .privacy-banner {
   display: flex;
   align-items: center;
@@ -109,7 +137,9 @@ button, a, input, select, textarea {
 }
 .privacy-banner .shield { font-size: 15px; flex-shrink: 0; }
 
-/* ── Getting Started ── */
+/* ══════════════════════════════════════
+   Getting Started
+   ══════════════════════════════════════ */
 .getting-started {
   background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
@@ -168,10 +198,18 @@ button, a, input, select, textarea {
   align-items: center;
   gap: 6px;
 }
-.getting-started .autosave-note .save-icon { color: var(--success); font-size: 12px; }
+.getting-started .autosave-note .save-icon {
+  color: var(--success);
+  font-size: 12px;
+}
 
-/* ── Sections ── */
-.section { margin-bottom: 28px; position: relative; }
+/* ══════════════════════════════════════
+   Sections & Titles
+   ══════════════════════════════════════ */
+.section {
+  margin-bottom: 36px;
+  position: relative;
+}
 .section-title {
   font-family: var(--font-display);
   font-size: 12px;
@@ -179,7 +217,7 @@ button, a, input, select, textarea {
   color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -194,103 +232,54 @@ button, a, input, select, textarea {
   border-radius: 10px;
 }
 
-/* ── Help Collapsible ── */
-.help-trigger {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  color: var(--accent);
-  font-size: 12px;
-  font-family: var(--font-mono);
-  padding: 10px 14px;
-  border-radius: var(--radius);
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
-  transition: border-color var(--transition);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.help-trigger:hover { border-color: var(--accent-border); }
-.help-trigger .help-qmark {
-  width: 18px; height: 18px; border-radius: 50%;
-  background: var(--accent-dim); border: 1px solid var(--accent-border);
-  color: var(--accent); font-family: var(--font-display);
-  font-size: 11px; font-weight: 700;
-  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.help-trigger .help-label { flex: 1; }
-.help-trigger .arrow { transition: transform var(--transition); font-size: 10px; }
-.help-trigger[aria-expanded="true"] .arrow { transform: rotate(90deg); }
-.help-trigger[aria-expanded="true"] .help-qmark {
-  background: var(--accent); color: var(--bg-primary); border-color: var(--accent);
-}
-.help-content {
-  max-height: 0; overflow: hidden;
-  transition: max-height 300ms ease, margin 300ms ease, opacity 200ms ease;
-  opacity: 0;
-}
-.help-content.open { max-height: 600px; margin-top: 12px; opacity: 1; }
-.help-box {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius);
-  padding: 16px; font-size: 12px; line-height: 1.8;
+/* ══════════════════════════════════════
+   Form Controls
+   ══════════════════════════════════════ */
+label {
+  font-size: 10px;
   color: var(--text-secondary);
-}
-.help-box strong { color: var(--text-primary); font-weight: 600; }
-.help-box code {
-  background: var(--bg-tertiary);
-  padding: 2px 6px; border-radius: 3px;
-  color: var(--success); font-size: 11px;
-}
-.help-box .divider {
-  border-top: 1px solid var(--border-subtle);
-  margin: 10px 0; padding-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
 }
 
-/* ── Clickable Geo IDs ── */
-.geo-id-btn {
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-subtle);
-  color: var(--success);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: all var(--transition);
-}
-.geo-id-btn:hover {
-  background: var(--success-dim);
-  border-color: var(--success-border);
-  color: var(--success);
-}
-
-/* ── Form Controls ── */
 input, select, textarea {
   font-family: var(--font-mono);
   width: 100%;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
+  height: 48px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
   color: var(--text-primary);
-  padding: 10px 12px;
+  padding: 12px 14px;
   border-radius: var(--radius);
-  font-size: 16px;
+  font-size: 16px; /* prevents iOS zoom on focus */
   outline: none;
   transition: border-color var(--transition);
 }
-input:focus, select:focus, textarea:focus { border-color: var(--accent); }
-input::placeholder, textarea::placeholder { color: var(--text-muted); }
-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2358585f' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
-
-label {
-  font-size: 10px; color: var(--text-secondary);
-  text-transform: uppercase; letter-spacing: 1px;
-  display: block; margin-bottom: 6px; font-weight: 500;
+textarea {
+  height: auto;
+  min-height: 48px;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+}
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted);
+}
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2378787f' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
 }
 
-/* ── Chip/Pill Checkbox Group ── */
+/* ══════════════════════════════════════
+   Chip / Pill Checkbox Groups
+   ══════════════════════════════════════ */
 .chip-group {
   display: flex;
   flex-wrap: wrap;
@@ -308,9 +297,9 @@ label {
   font-size: 11px;
   font-weight: 500;
   color: var(--text-secondary);
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  padding: 6px 12px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  padding: 8px 14px;
   border-radius: 20px;
   cursor: pointer;
   transition: all var(--transition);
@@ -335,221 +324,528 @@ label {
   outline-offset: 2px;
 }
 
-/* ── Params Grid ── */
+/* ══════════════════════════════════════
+   Params Grid
+   ══════════════════════════════════════ */
 .params-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px;
+  gap: 16px;
 }
-.params-full { grid-column: 1 / -1; }
+.params-full {
+  grid-column: 1 / -1;
+  padding-top: 4px;
+  border: 0;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+}
 
-/* ── Company List ── */
-.company-list {
-  max-height: 460px; overflow-y: auto;
+/* ══════════════════════════════════════
+   Help Collapsible
+   ══════════════════════════════════════ */
+.help-trigger {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  padding: 10px 14px;
   border-radius: var(--radius);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: border-color var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.help-trigger:hover {
+  border-color: var(--accent-border);
+}
+.help-trigger .help-qmark {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.help-trigger .help-label { flex: 1; }
+.help-trigger .arrow {
+  transition: transform var(--transition);
+  font-size: 10px;
+}
+.help-trigger[aria-expanded="true"] .arrow {
+  transform: rotate(90deg);
+}
+.help-trigger[aria-expanded="true"] .help-qmark {
+  background: var(--accent);
+  color: var(--bg-primary);
+  border-color: var(--accent);
+}
+
+.help-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 300ms ease, margin 300ms ease, opacity 200ms ease;
+  opacity: 0;
+}
+.help-content.open {
+  max-height: 600px;
+  margin-top: 12px;
+  opacity: 1;
+}
+
+.help-box {
+  background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  padding: 16px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+.help-box strong { color: var(--text-primary); font-weight: 600; }
+.help-box code {
+  background: var(--bg-tertiary);
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: var(--success);
+  font-size: 11px;
+}
+.help-box .divider {
+  border-top: 1px solid var(--border-subtle);
+  margin: 10px 0;
+  padding-top: 10px;
+}
+.help-box .hint {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* ══════════════════════════════════════
+   Clickable Geo IDs
+   ══════════════════════════════════════ */
+.geo-id-btn {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  color: var(--success);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.geo-id-btn:hover {
+  background: var(--success-dim);
+  border-color: var(--success-border);
+}
+
+/* ══════════════════════════════════════
+   Buttons
+   ══════════════════════════════════════ */
+.btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all var(--transition);
+  border: 1px solid;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.btn-accent  { background: var(--accent-dim);  border-color: var(--accent-border);  color: var(--accent); }
+.btn-success { background: var(--success-dim); border-color: var(--success-border); color: var(--success); }
+.btn-danger  { background: var(--danger-dim);  border-color: transparent;           color: var(--danger); }
+.btn-ghost   { background: transparent;        border-color: var(--border);         color: var(--text-secondary); }
+
+.btn-accent:hover  { background: rgba(34, 211, 238, 0.2); border-color: var(--accent); }
+.btn-success:hover { background: rgba(52, 211, 153, 0.2); border-color: var(--success); }
+.btn-danger:hover  { border-color: rgba(248, 113, 113, 0.3); }
+.btn-ghost:hover   { border-color: var(--text-muted); color: var(--text-primary); }
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 15px;
+  padding: 0;
+  line-height: 1;
+  font-family: var(--font-mono);
+  transition: color var(--transition);
+}
+.icon-btn:hover { color: var(--danger); }
+
+/* ══════════════════════════════════════
+   Company List
+   ══════════════════════════════════════ */
+.company-list {
+  max-height: 460px;
+  overflow-y: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
   -webkit-overflow-scrolling: touch;
 }
 .company-row {
   display: grid;
   grid-template-columns: 1fr 130px 28px;
-  gap: 8px; align-items: center;
+  gap: 8px;
+  align-items: center;
   padding: 7px 12px;
   border-bottom: 1px solid var(--bg-primary);
   transition: background var(--transition);
 }
-.company-row:last-child { border-bottom: none; }
-.company-row:nth-child(odd) { background: var(--bg-secondary); }
+.company-row:last-child  { border-bottom: none; }
+.company-row:nth-child(odd)  { background: var(--bg-secondary); }
 .company-row:nth-child(even) { background: var(--bg-tertiary); }
 .company-row:hover { background: var(--bg-elevated); }
+
 .company-name {
-  font-size: 12px; font-weight: 500;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .company-name.has-id { color: var(--success); }
-.company-name.no-id { color: var(--text-secondary); }
+.company-name.no-id  { color: var(--text-secondary); }
+
 .company-link {
-  font-size: 10px; color: var(--accent);
-  margin-left: 8px; text-decoration: none;
-  opacity: 0.6; transition: opacity var(--transition);
+  font-size: 10px;
+  color: var(--accent);
+  margin-left: 8px;
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity var(--transition);
 }
 .company-link:hover { opacity: 1; }
+
 .id-input {
-  padding: 5px 8px !important;
-  border-radius: var(--radius-sm) !important;
+  padding: 8px 10px !important;
+  border-radius: var(--radius) !important;
   font-size: 12px !important;
   text-align: center;
+  height: auto !important;
+  background: var(--bg-tertiary) !important;
+  border: 1px solid var(--border) !important;
 }
-.id-input.filled { border-color: var(--success-border) !important; background: var(--success-dim) !important; }
+.id-input.filled {
+  border-color: var(--success-border) !important;
+  background: var(--success-dim) !important;
+}
 
-/* ── Buttons ── */
-.btn {
-  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
-  padding: 8px 14px; border-radius: var(--radius-sm);
-  cursor: pointer; transition: all var(--transition);
-  border: 1px solid; white-space: nowrap;
+.empty-list {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 12px;
 }
-.btn-accent { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
-.btn-accent:hover { background: rgba(34, 211, 238, 0.2); border-color: var(--accent); }
-.btn-success { background: var(--success-dim); border-color: var(--success-border); color: var(--success); }
-.btn-success:hover { background: rgba(52, 211, 153, 0.2); border-color: var(--success); }
-.btn-danger { background: var(--danger-dim); border-color: transparent; color: var(--danger); }
-.btn-danger:hover { border-color: rgba(248, 113, 113, 0.3); }
-.btn-ghost { background: transparent; border-color: var(--border); color: var(--text-secondary); }
-.btn-ghost:hover { border-color: var(--text-muted); color: var(--text-primary); }
-.icon-btn {
-  background: none; border: none; color: var(--text-muted);
-  cursor: pointer; font-size: 15px; padding: 0; line-height: 1;
-  font-family: var(--font-mono); transition: color var(--transition);
-}
-.icon-btn:hover { color: var(--danger); }
 
-/* ── Action rows ── */
-.add-row {
-  display: grid; grid-template-columns: 1fr 1fr auto;
-  gap: 8px; margin-bottom: 12px;
+/* ══════════════════════════════════════
+   Action Rows
+   ══════════════════════════════════════ */
+.bulk-row {
+  margin-bottom: 16px;
 }
-.add-row input { font-size: 12px; padding: 8px 12px; }
-.bulk-row { margin-bottom: 12px; }
-.bulk-row .bulk-inner { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+.bulk-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: end;
+}
 .bulk-row textarea {
-  font-size: 12px; padding: 8px 12px;
-  min-height: 42px; max-height: 100px; resize: vertical;
+  font-size: 12px;
+  padding: 8px 12px;
+  min-height: 42px;
+  max-height: 100px;
+  resize: vertical;
 }
-.toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
-.manage-list { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-subtle); }
-.manage-header { margin-bottom: 10px; }
-.manage-note { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-top: 2px; }
 
-/* ── Output ── */
+.add-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.add-row input { font-size: 12px; }
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ══════════════════════════════════════
+   Manage List
+   ══════════════════════════════════════ */
+.manage-list {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+.manage-header { margin-bottom: 16px; }
+.manage-title  { margin-bottom: 4px; }
+.manage-note {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+/* ══════════════════════════════════════
+   Output
+   ══════════════════════════════════════ */
 .output-box {
   background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius); padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
 }
-.output-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 10px; flex-wrap: wrap; gap: 8px;
+.output-title { margin-bottom: 12px; }
+.output-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
 }
-.btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+
 .url-display {
-  background: var(--bg-primary); border-radius: var(--radius);
-  padding: 14px; font-size: 11px; line-height: 1.7;
-  word-break: break-all; font-family: var(--font-mono);
-  user-select: all; cursor: text; min-height: 44px;
-  border: 1px solid var(--border-subtle);
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  font-size: 11px;
+  line-height: 1.7;
+  word-break: break-all;
+  font-family: var(--font-mono);
+  user-select: all;
+  cursor: text;
+  min-height: 44px;
 }
 .url-display.active { color: var(--success); border-color: var(--success-border); }
-.url-display.empty { color: var(--text-muted); font-style: italic; border-color: transparent; }
-.includes-text { font-size: 10px; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+.url-display.empty  { color: var(--text-muted); font-style: italic; border-color: transparent; }
 
-/* ── Toast ── */
+.includes-text {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* ══════════════════════════════════════
+   Toast
+   ══════════════════════════════════════ */
 .toast {
-  position: fixed; bottom: 24px; right: 24px;
-  background: var(--bg-elevated); border: 1px solid var(--success-border);
-  color: var(--success); padding: 10px 18px; border-radius: var(--radius);
-  font-family: var(--font-mono); font-size: 12px;
-  opacity: 0; transform: translateY(10px);
-  transition: all 200ms ease; pointer-events: none; z-index: 1000;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--success-border);
+  color: var(--success);
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 200ms ease;
+  pointer-events: none;
+  z-index: 1000;
 }
 .toast.show { opacity: 1; transform: translateY(0); }
 
-/* ── Footer ── */
+/* ══════════════════════════════════════
+   Danger Zone
+   ══════════════════════════════════════ */
+.danger-zone {
+  margin-top: 40px;
+  padding: 16px;
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  border-radius: var(--radius);
+  background: rgba(248, 113, 113, 0.04);
+}
+.danger-zone-title {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--danger);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+}
+.danger-zone p {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+/* ══════════════════════════════════════
+   Footer
+   ══════════════════════════════════════ */
 .footer {
-  margin-top: 48px; padding-top: 20px;
+  margin-top: 48px;
+  padding-top: 20px;
   border-top: 1px solid var(--border-subtle);
-  font-size: 11px; color: var(--text-muted); line-height: 1.6;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 .footer a { color: var(--accent); text-decoration: none; }
 .footer a:hover { text-decoration: underline; }
+.footer-links { margin-top: 6px; }
 .footer .star-prompt {
-  margin-top: 10px; padding-top: 10px;
+  margin-top: 10px;
+  padding-top: 10px;
   border-top: 1px solid var(--border-subtle);
-  font-size: 11px; color: var(--text-muted);
+  font-size: 11px;
+  color: var(--text-muted);
 }
 .footer .star-prompt a { color: var(--warning); }
 
-/* ── Desktop override ── */
+/* ══════════════════════════════════════
+   Desktop Override (> 600px)
+   ══════════════════════════════════════ */
 @media (min-width: 601px) {
   input, select, textarea { font-size: 13px; }
 }
 
-/* ── Mobile ── */
+/* ══════════════════════════════════════
+   Mobile (<= 600px)
+   ══════════════════════════════════════ */
 @media (max-width: 600px) {
+  /* Layout */
   .app { padding: 16px 14px 60px; }
-  .section { margin-bottom: 20px; }
   .header { margin-bottom: 28px; }
   .header p { font-size: 12px; }
-  .privacy-banner { font-size: 11px; padding: 8px 12px; margin-bottom: 12px; }
-  .getting-started { padding: 12px 14px; margin-bottom: 20px; }
-  .getting-started li { font-size: 11px; gap: 8px; }
+
+  /* Sections */
+  .section { margin-bottom: 48px; }
+  .section-title { margin-bottom: 20px; }
+
+  /* Privacy */
+  .privacy-banner { font-size: 11px; padding: 10px 12px; margin-bottom: 16px; }
+
+  /* Getting Started */
+  .getting-started { padding: 14px; margin-bottom: 24px; }
+  .getting-started li { font-size: 11px; gap: 8px; margin-bottom: 4px; }
   .getting-started li::before { width: 18px; height: 18px; font-size: 9px; }
-  .getting-started .autosave-note { font-size: 10px; }
-  .params-grid { grid-template-columns: 1fr; gap: 10px; }
-  .chip-group label.chip { font-size: 11px; padding: 8px 12px; min-height: 36px; }
+  .getting-started .autosave-note { font-size: 10px; margin-top: 12px; padding-top: 12px; }
+
+  /* Params */
+  .params-grid { grid-template-columns: 1fr; gap: 22px; }
+  .params-full { padding-top: 8px; }
+  label { margin-bottom: 10px; }
+
+  /* Chips */
+  .chip-group { gap: 10px; }
+  .chip-group label.chip { font-size: 11px; padding: 10px 14px; min-height: 38px; }
+
+  /* Help */
+  .help-trigger { font-size: 11px; padding: 10px 12px; min-height: 44px; margin-top: 8px; margin-bottom: 20px; }
+  .help-box { font-size: 11px; padding: 14px; }
+  .help-box code { font-size: 10px; }
+  .geo-id-btn { font-size: 10px; padding: 4px 8px; min-height: 32px; }
+
+  /* Action Rows */
+  .bulk-row { margin-bottom: 28px; }
+  .bulk-inner { grid-template-columns: 1fr; gap: 12px; }
+  .bulk-inner .btn { width: 100%; }
+  .add-row { grid-template-columns: 1fr; margin-bottom: 24px; gap: 12px; }
+  .add-row .btn { width: 100%; }
+
+  /* Company List */
+  .company-list { margin-top: 4px; }
   .company-row { grid-template-columns: 1fr 110px 36px; gap: 6px; padding: 8px 10px; }
   .company-name { font-size: 11px; }
   .company-link { font-size: 9px; }
   .id-input { font-size: 11px !important; padding: 6px 6px !important; }
-  .icon-btn { font-size: 18px; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; }
-  .bulk-row .bulk-inner { grid-template-columns: 1fr; }
-  .bulk-row .bulk-inner .btn { width: 100%; }
-  .add-row { grid-template-columns: 1fr; }
-  .add-row .btn { width: 100%; }
+  .icon-btn {
+    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Toolbar */
   .toolbar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
   .toolbar .btn { text-align: center; padding: 10px 8px; }
+  .manage-list { margin-top: 28px; padding-top: 24px; }
+  .manage-header { margin-bottom: 16px; }
+
+  /* Buttons */
   .btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
   input, select, textarea { min-height: 44px; }
-  .output-header { flex-direction: column; align-items: stretch; }
-  .output-header .section-title { margin-bottom: 4px; }
-  .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .btn-group .btn { text-align: center; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+
+  /* Output */
+  .output-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .output-actions .btn { text-align: center; }
   .url-display { font-size: 10px; padding: 12px; line-height: 1.6; }
   .includes-text { font-size: 10px; }
-  .help-trigger { font-size: 11px; padding: 10px 12px; min-height: 44px; }
-  .help-box { font-size: 11px; padding: 14px; }
-  .help-box code { font-size: 10px; }
-  .geo-id-btn { font-size: 10px; padding: 4px 8px; min-height: 32px; }
+
+  /* Toast */
   .toast { left: 14px; right: 14px; bottom: 16px; text-align: center; font-size: 11px; }
+
+  /* Footer */
   .footer { margin-top: 32px; font-size: 10px; }
 }
 
+/* ── Extra Small (320px) ── */
 @media (max-width: 374px) {
   .params-grid { grid-template-columns: 1fr; }
   .company-row { grid-template-columns: 1fr 90px 32px; }
   .toolbar { grid-template-columns: 1fr 1fr; }
 }
 
-/* ── Animations ── */
+/* ══════════════════════════════════════
+   Animations
+   ══════════════════════════════════════ */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.privacy-banner { animation: fadeIn 400ms ease both; }
+.privacy-banner  { animation: fadeIn 400ms ease both; }
 .getting-started { animation: fadeIn 400ms ease both; animation-delay: 50ms; }
-.section { animation: fadeIn 400ms ease both; }
+.section         { animation: fadeIn 400ms ease both; }
 .section:nth-child(1) { animation-delay: 100ms; }
 .section:nth-child(2) { animation-delay: 150ms; }
 .section:nth-child(3) { animation-delay: 200ms; }
+
 </style>
 </head>
 <body>
 
 <div class="app">
 
-  <!-- Header -->
+  <!-- ─── Header ─── -->
   <header class="header">
     <h1>LinkedIn Job Search <span>URL Builder</span></h1>
     <p>Build custom job search URLs with bulk company filters. Skip the tedious one-by-one dropdown.</p>
   </header>
 
-  <!-- Privacy Banner -->
+  <!-- ─── Privacy Banner ─── -->
   <div class="privacy-banner" role="status">
     <span class="shield" aria-hidden="true">&#128274;</span>
-    100% private — this tool runs entirely in your browser. No data is collected or sent to any server. Fonts are loaded from Google Fonts.
+    100% private — this tool runs entirely in your browser. No data is collected or sent to any server.
   </div>
 
-  <!-- Getting Started -->
+  <!-- ─── Getting Started ─── -->
   <div class="getting-started">
     <div class="getting-started-title">How it works</div>
     <ol>
@@ -563,7 +859,7 @@ label {
     </div>
   </div>
 
-  <!-- Search Parameters -->
+  <!-- ─── Search Parameters ─── -->
   <div class="section">
     <div class="section-title">Search Parameters</div>
     <div class="params-grid">
@@ -596,8 +892,8 @@ label {
       </div>
 
       <!-- Multi-select: Experience Level -->
-      <fieldset class="params-full" style="border:0;padding:0">
-        <legend><label style="margin-bottom:6px">Experience Level</label></legend>
+      <fieldset class="params-full">
+        <legend><label>Experience Level</label></legend>
         <div class="chip-group" id="experienceGroup">
           <input type="checkbox" id="exp_1" value="1"><label class="chip" for="exp_1">Internship</label>
           <input type="checkbox" id="exp_2" value="2"><label class="chip" for="exp_2">Entry level</label>
@@ -609,8 +905,8 @@ label {
       </fieldset>
 
       <!-- Multi-select: Job Type -->
-      <fieldset class="params-full" style="border:0;padding:0">
-        <legend><label style="margin-bottom:6px">Job Type</label></legend>
+      <fieldset class="params-full">
+        <legend><label>Job Type</label></legend>
         <div class="chip-group" id="jobTypeGroup">
           <input type="checkbox" id="jt_F" value="F"><label class="chip" for="jt_F">Full-time</label>
           <input type="checkbox" id="jt_P" value="P"><label class="chip" for="jt_P">Part-time</label>
@@ -621,8 +917,8 @@ label {
       </fieldset>
 
       <!-- Multi-select: Workplace -->
-      <fieldset class="params-full" style="border:0;padding:0">
-        <legend><label style="margin-bottom:6px">Workplace</label></legend>
+      <fieldset class="params-full">
+        <legend><label>Workplace</label></legend>
         <div class="chip-group" id="workplaceGroup">
           <input type="checkbox" id="wt_1" value="1"><label class="chip" for="wt_1">On-site</label>
           <input type="checkbox" id="wt_2" value="2"><label class="chip" for="wt_2">Remote</label>
@@ -632,14 +928,14 @@ label {
     </div>
 
     <!-- Geo ID Reference -->
-    <button class="help-trigger" aria-expanded="false" aria-controls="geoid-help" style="margin-top:12px">
+    <button class="help-trigger" aria-expanded="false" aria-controls="geoid-help">
       <span class="help-qmark">?</span>
       <span class="help-label">Common Geo IDs</span>
       <span class="arrow" aria-hidden="true">&#9654;</span>
     </button>
     <div class="help-content" id="geoid-help" role="region">
       <div class="help-box">
-        <p><strong>Countries:</strong> <span style="font-size:10px;color:var(--text-muted)">(tap to use)</span></p>
+        <p><strong>Countries:</strong> <span class="hint">(tap to use)</span></p>
         <p>
           <button class="geo-id-btn" data-geoid="101452733">101452733</button> Australia &middot;
           <button class="geo-id-btn" data-geoid="101165590">101165590</button> United Kingdom &middot;
@@ -668,7 +964,7 @@ label {
     </div>
   </div>
 
-  <!-- Companies -->
+  <!-- ─── Company Filter ─── -->
   <div class="section">
     <div class="section-title">
       Company Filter
@@ -676,13 +972,13 @@ label {
     </div>
 
     <!-- How to find IDs -->
-    <button class="help-trigger" aria-expanded="false" aria-controls="companyid-help" style="margin-bottom:12px">
+    <button class="help-trigger" aria-expanded="false" aria-controls="companyid-help">
       <span class="help-qmark">?</span>
       <span class="help-label">How to find a company's numeric ID</span>
       <span class="arrow" aria-hidden="true">&#9654;</span>
     </button>
     <div class="help-content" id="companyid-help" role="region">
-      <div class="help-box" style="margin-bottom:12px">
+      <div class="help-box">
         <p><strong>Option A — From the company filter (fastest):</strong></p>
         <p>1. Go to LinkedIn Jobs and type a company name into the <strong>Company</strong> filter dropdown</p>
         <p>2. Select it, then look at the URL — copy the number after <code>f_C=</code></p>
@@ -702,14 +998,15 @@ label {
 
     <!-- Bulk add -->
     <div class="bulk-row">
-      <label for="bulkIds">Bulk Add IDs <span style="color:var(--text-muted);text-transform:none;letter-spacing:0;font-weight:400">(comma-separated)</span></label>
+      <label for="bulkIds">Bulk Add IDs <span class="hint">(comma-separated)</span></label>
       <div class="bulk-inner">
         <textarea id="bulkIds" rows="1" placeholder="e.g. 8900,42797345,1319529,44793"></textarea>
-        <button class="btn btn-accent" id="bulkAddBtn" style="align-self:end">Add All</button>
+        <button class="btn btn-accent" id="bulkAddBtn">Add All</button>
       </div>
     </div>
 
     <!-- Single add -->
+    <label>Add Individual Companies</label>
     <div class="add-row">
       <input id="addName" placeholder="Company name">
       <input id="addId" placeholder="Company ID" inputmode="numeric" pattern="[0-9]*">
@@ -718,54 +1015,59 @@ label {
 
     <!-- Company list -->
     <div class="company-list" id="companyList" role="list" aria-label="Company list">
-      <div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12px">
-        No companies added yet. Use Bulk Add or + Add above.
-      </div>
+      <div class="empty-list">No companies added yet. Use Bulk Add or + Add above.</div>
     </div>
 
     <!-- Manage list -->
     <div class="manage-list">
       <div class="manage-header">
-        <div class="section-title" style="margin-bottom:4px">Manage List</div>
+        <div class="section-title manage-title">Manage List</div>
         <p class="manage-note">Your list auto-saves in this browser automatically. Export downloads a backup file you can share or re-import later. Data won't persist in incognito/private browsing or if you clear your browser data — export first to be safe.</p>
       </div>
       <div class="toolbar">
         <button class="btn btn-ghost" id="exportBtn" title="Download company list as a JSON file">Export List</button>
         <button class="btn btn-ghost" id="importBtn" title="Load a company list from a JSON file">Import List</button>
-        <input type="file" id="importFile" accept=".json" style="display:none">
+        <input type="file" id="importFile" accept=".json" hidden>
         <button class="btn btn-danger" id="clearBtn" title="Remove all companies from your list">Clear All</button>
       </div>
     </div>
   </div>
 
-  <!-- Output -->
+  <!-- ─── Generated URL ─── -->
   <div class="section">
     <div class="output-box">
-      <div class="output-header">
-        <div class="section-title" style="margin-bottom:0">Generated URL</div>
-        <div class="btn-group">
-          <button class="btn btn-success" id="copyBtn">Copy URL</button>
-          <a class="btn btn-accent" id="openBtn" href="#" target="_blank" rel="noopener noreferrer" style="display:none;text-decoration:none">Open in LinkedIn &#8599;</a>
-        </div>
-      </div>
+      <div class="section-title output-title">Generated URL</div>
       <div class="url-display empty" id="urlDisplay" aria-live="polite">
         Configure your search parameters and add company IDs to generate a URL
       </div>
       <p class="includes-text" id="includesText"></p>
+      <div class="output-actions">
+        <button class="btn btn-success" id="copyBtn">Copy URL</button>
+        <a class="btn btn-accent" id="openBtn" href="#" target="_blank" rel="noopener noreferrer" hidden>Open in LinkedIn &#8599;</a>
+      </div>
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- ─── Danger Zone ─── -->
+  <div class="danger-zone">
+    <div class="danger-zone-title">Danger Zone</div>
+    <p>This will permanently reset all search filters, your company list, and all saved data in this browser.</p>
+    <button class="btn btn-danger" id="resetAllBtn">Reset Everything</button>
+  </div>
+
+  <!-- ─── Footer ─── -->
   <footer class="footer">
     <p>This tool runs entirely in your browser. No data is sent to any server. No analytics, no cookies, no tracking.</p>
-    <p style="margin-top:6px">
+    <p class="footer-links">
       <a href="https://github.com/brodiecox/linkedin-job-tool" target="_blank" rel="noopener noreferrer">View on GitHub</a> ·
       Not affiliated with LinkedIn.
     </p>
+    <p class="footer-links">Fonts loaded from Google Fonts.</p>
     <div class="star-prompt">
       Found this useful? <a href="https://github.com/brodiecox/linkedin-job-tool" target="_blank" rel="noopener noreferrer">&#9733; Star it on GitHub</a> — it helps others find it.
     </div>
   </footer>
+
 </div>
 
 <!-- Toast -->
@@ -774,7 +1076,9 @@ label {
 <script>
 'use strict';
 
-/* ── Clickjacking protection ── */
+/* ══════════════════════════════════════
+   Clickjacking Protection
+   ══════════════════════════════════════ */
 if (window.top !== window.self) {
   document.body.innerHTML = '';
   window.top.location = window.self.location;
@@ -784,13 +1088,14 @@ if (window.top !== window.self) {
    Constants & State
    ══════════════════════════════════════ */
 var STORAGE_KEY = 'li-search-builder';
+var LINKEDIN_BASE = 'https://www.linkedin.com/jobs/search/?';
+
 var SINGLE_FIELDS = ['keyword', 'timeframe', 'geoId', 'sortBy'];
 var MULTI_FIELDS = {
   experienceGroup: 'f_E',
-  jobTypeGroup: 'f_JT',
-  workplaceGroup: 'f_WT'
+  jobTypeGroup:    'f_JT',
+  workplaceGroup:  'f_WT'
 };
-var LINKEDIN_SEARCH_BASE = 'https://www.linkedin.com/jobs/search/?';
 
 var companies = [];
 var toastTimer = null;
@@ -798,60 +1103,69 @@ var toastTimer = null;
 /* ══════════════════════════════════════
    Utilities
    ══════════════════════════════════════ */
+
+/** Escape a string for safe HTML insertion. */
 function esc(str) {
-  var div = document.createElement('div');
-  div.textContent = str || '';
-  return div.innerHTML;
+  var el = document.createElement('div');
+  el.textContent = str || '';
+  return el.innerHTML;
 }
 
+/** Strip everything except digits. */
 function sanitizeId(val) {
   return String(val || '').replace(/\D/g, '');
 }
 
-function companyUrl(slugOrId) {
-  return 'https://www.linkedin.com/company/' + encodeURIComponent(slugOrId);
+/** Build a safe LinkedIn company URL. */
+function companyUrl(id) {
+  return 'https://www.linkedin.com/company/' + encodeURIComponent(id);
 }
 
-/** Get checked values from a chip-group by container ID. */
+/** Get checked values from a chip-group. */
 function getCheckedValues(groupId) {
-  var checks = document.querySelectorAll('#' + groupId + ' input[type="checkbox"]:checked');
-  var vals = [];
-  checks.forEach(function (c) { vals.push(c.value); });
-  return vals;
+  var result = [];
+  document.querySelectorAll('#' + groupId + ' input[type="checkbox"]:checked')
+    .forEach(function (cb) { result.push(cb.value); });
+  return result;
 }
 
-/** Set checked state on a chip-group from an array of values. */
+/** Set checked state on a chip-group from an array. */
 function setCheckedValues(groupId, values) {
   if (!Array.isArray(values)) return;
-  var checks = document.querySelectorAll('#' + groupId + ' input[type="checkbox"]');
-  checks.forEach(function (c) {
-    c.checked = values.indexOf(c.value) !== -1;
-  });
+  document.querySelectorAll('#' + groupId + ' input[type="checkbox"]')
+    .forEach(function (cb) { cb.checked = values.indexOf(cb.value) !== -1; });
 }
 
 /* ══════════════════════════════════════
-   Persistence
+   Persistence (localStorage)
    ══════════════════════════════════════ */
 function loadState() {
   try {
     var raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
     var data = JSON.parse(raw);
+
     if (Array.isArray(data.companies)) {
       companies = data.companies.map(function (c) {
-        return { name: String(c.name || ''), slug: String(c.slug || ''), id: sanitizeId(c.id) };
+        return {
+          name: String(c.name || ''),
+          slug: String(c.slug || ''),
+          id:   sanitizeId(c.id)
+        };
       });
     }
+
     if (data.params) {
       SINGLE_FIELDS.forEach(function (f) {
         var el = document.getElementById(f);
         if (el && data.params[f] !== undefined) el.value = data.params[f];
       });
-      // Multi-select fields
       Object.keys(MULTI_FIELDS).forEach(function (groupId) {
         var key = MULTI_FIELDS[groupId];
         if (data.params[key]) {
-          var vals = Array.isArray(data.params[key]) ? data.params[key] : String(data.params[key]).split(',');
+          var vals = Array.isArray(data.params[key])
+            ? data.params[key]
+            : String(data.params[key]).split(',');
           setCheckedValues(groupId, vals);
         }
       });
@@ -871,12 +1185,17 @@ function saveState() {
     Object.keys(MULTI_FIELDS).forEach(function (groupId) {
       params[MULTI_FIELDS[groupId]] = getCheckedValues(groupId);
     });
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ companies: companies, params: params }));
-  } catch (e) { /* localStorage full or unavailable */ }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      companies: companies,
+      params: params
+    }));
+  } catch (e) {
+    /* localStorage full or unavailable — fail silently */
+  }
 }
 
 /* ══════════════════════════════════════
-   Render
+   Render Company List
    ══════════════════════════════════════ */
 function render() {
   var list = document.getElementById('companyList');
@@ -884,33 +1203,29 @@ function render() {
   document.getElementById('companyCount').textContent = withIds.length + ' / ' + companies.length;
 
   if (companies.length === 0) {
-    list.innerHTML = '<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12px">' +
-      'No companies added yet. Use Bulk Add or + Add above.</div>';
+    list.innerHTML = '<div class="empty-list">No companies added yet. Use Bulk Add or + Add above.</div>';
     buildUrl();
     return;
   }
 
-  var rows = companies.map(function (c, i) {
+  list.innerHTML = companies.map(function (c, i) {
     var hasId = !!c.id;
-    var nameClass = 'company-name ' + (hasId ? 'has-id' : 'no-id');
-    var inputClass = 'id-input' + (hasId ? ' filled' : '');
-    var linkHtml = '';
-    if (c.id) {
-      linkHtml = '<a class="company-link" href="' + esc(companyUrl(c.id)) + '" target="_blank" rel="noopener noreferrer">verify&nbsp;&#8599;</a>';
-    }
+    var linkHtml = hasId
+      ? '<a class="company-link" href="' + esc(companyUrl(c.id)) + '" target="_blank" rel="noopener noreferrer">verify&nbsp;&#8599;</a>'
+      : '';
+
     return '<div class="company-row" role="listitem">' +
       '<div style="min-width:0;overflow:hidden">' +
-        '<span class="' + nameClass + '" title="' + esc(c.name) + '">' + esc(c.name) + '</span>' +
+        '<span class="company-name ' + (hasId ? 'has-id' : 'no-id') + '" title="' + esc(c.name) + '">' + esc(c.name) + '</span>' +
         linkHtml +
       '</div>' +
-      '<input class="' + inputClass + '" value="' + esc(c.id) + '" placeholder="paste ID" ' +
+      '<input class="id-input' + (hasId ? ' filled' : '') + '" value="' + esc(c.id) + '" placeholder="paste ID" ' +
         'data-index="' + i + '" aria-label="Company ID for ' + esc(c.name) + '">' +
       '<button class="icon-btn" data-remove="' + i + '" title="Remove ' + esc(c.name) + '" ' +
         'aria-label="Remove ' + esc(c.name) + '">&times;</button>' +
     '</div>';
-  });
+  }).join('');
 
-  list.innerHTML = rows.join('');
   buildUrl();
 }
 
@@ -923,52 +1238,85 @@ function updateId(index, val) {
   saveState();
 
   var input = document.querySelectorAll('.id-input')[index];
-  if (input) { input.classList.toggle('filled', !!cleaned); if (input.value !== cleaned) input.value = cleaned; }
+  if (input) {
+    input.classList.toggle('filled', !!cleaned);
+    if (input.value !== cleaned) input.value = cleaned;
+  }
+
   var nameEl = document.querySelectorAll('.company-name')[index];
-  if (nameEl) { nameEl.classList.toggle('has-id', !!cleaned); nameEl.classList.toggle('no-id', !cleaned); }
+  if (nameEl) {
+    nameEl.classList.toggle('has-id', !!cleaned);
+    nameEl.classList.toggle('no-id', !cleaned);
+  }
 
   var withIds = companies.filter(function (c) { return c.id; });
   document.getElementById('companyCount').textContent = withIds.length + ' / ' + companies.length;
   buildUrl();
 }
 
-function removeCompany(index) { companies.splice(index, 1); saveState(); render(); }
+function removeCompany(index) {
+  companies.splice(index, 1);
+  saveState();
+  render();
+}
 
 function addCompany() {
   var nameInput = document.getElementById('addName');
   var idInput = document.getElementById('addId');
   var name = nameInput.value.trim();
   var id = sanitizeId(idInput.value);
+
   if (!name && !id) return;
-  var displayName = name || (id ? 'Company #' + id : '');
+
+  var displayName = name || ('Company #' + id);
   companies.push({ name: displayName, slug: '', id: id });
-  nameInput.value = ''; idInput.value = '';
-  saveState(); render();
+  nameInput.value = '';
+  idInput.value = '';
+  saveState();
+  render();
   toast('Added "' + displayName + '"');
 }
 
 function bulkAddIds() {
   var raw = document.getElementById('bulkIds').value;
   var ids = raw.split(/[,\s]+/).map(sanitizeId).filter(Boolean);
-  var unique = [], seen = {};
-  ids.forEach(function (id) { if (!seen[id]) { seen[id] = true; unique.push(id); } });
+
+  // Deduplicate input
+  var unique = [];
+  var seen = {};
+  ids.forEach(function (id) {
+    if (!seen[id]) { seen[id] = true; unique.push(id); }
+  });
+
+  // Skip IDs already in the list
   var existing = {};
   companies.forEach(function (c) { if (c.id) existing[c.id] = true; });
+
   var added = 0;
   unique.forEach(function (id) {
-    if (!existing[id]) { companies.push({ name: 'Company #' + id, slug: '', id: id }); existing[id] = true; added++; }
+    if (!existing[id]) {
+      companies.push({ name: 'Company #' + id, slug: '', id: id });
+      existing[id] = true;
+      added++;
+    }
   });
+
   if (added > 0) {
     document.getElementById('bulkIds').value = '';
-    saveState(); render();
+    saveState();
+    render();
     toast('Added ' + added + ' company ID' + (added > 1 ? 's' : ''));
-  } else { toast('No new IDs to add'); }
+  } else {
+    toast('No new IDs to add');
+  }
 }
 
 function clearAllCompanies() {
   if (companies.length === 0) return;
   if (!confirm('Remove all ' + companies.length + ' companies?')) return;
-  companies = []; saveState(); render();
+  companies = [];
+  saveState();
+  render();
   toast('All companies cleared');
 }
 
@@ -977,10 +1325,13 @@ function clearAllCompanies() {
    ══════════════════════════════════════ */
 function exportCompanies() {
   if (companies.length === 0) { toast('Nothing to export'); return; }
+
   var blob = new Blob([JSON.stringify(companies, null, 2)], { type: 'application/json' });
   var url = URL.createObjectURL(blob);
   var a = document.createElement('a');
-  a.href = url; a.download = 'linkedin-companies.json'; a.click();
+  a.href = url;
+  a.download = 'linkedin-companies.json';
+  a.click();
   URL.revokeObjectURL(url);
   toast('Exported company list');
 }
@@ -988,14 +1339,22 @@ function exportCompanies() {
 function importCompanies(event) {
   var file = event.target.files[0];
   if (!file) return;
-  if (file.size > 1048576) { toast('File too large (max 1 MB)'); event.target.value = ''; return; }
+
+  if (file.size > 1048576) {
+    toast('File too large (max 1 MB)');
+    event.target.value = '';
+    return;
+  }
+
   var reader = new FileReader();
   reader.onload = function (e) {
     try {
       var data = JSON.parse(e.target.result);
       if (!Array.isArray(data)) throw new Error('Expected an array');
+
       var existing = {};
       companies.forEach(function (c) { if (c.id) existing[c.id] = true; });
+
       var added = 0;
       data.forEach(function (item) {
         if (typeof item !== 'object' || item === null) return;
@@ -1004,11 +1363,16 @@ function importCompanies(event) {
         var slug = String(item.slug || '');
         if (id && existing[id]) return;
         companies.push({ name: name, slug: slug, id: id });
-        if (id) existing[id] = true; added++;
+        if (id) existing[id] = true;
+        added++;
       });
-      saveState(); render();
+
+      saveState();
+      render();
       toast('Imported ' + added + ' compan' + (added === 1 ? 'y' : 'ies'));
-    } catch (err) { toast('Invalid JSON file'); }
+    } catch (err) {
+      toast('Invalid JSON file');
+    }
   };
   reader.readAsText(file);
   event.target.value = '';
@@ -1018,46 +1382,48 @@ function importCompanies(event) {
    URL Builder
    ══════════════════════════════════════ */
 function buildUrl() {
-  var keyword = document.getElementById('keyword').value.trim();
+  var keyword   = document.getElementById('keyword').value.trim();
   var timeframe = document.getElementById('timeframe').value;
-  var geoId = document.getElementById('geoId').value.trim().replace(/\D/g, '');
-  var sort = document.getElementById('sortBy').value;
+  var geoId     = document.getElementById('geoId').value.trim().replace(/\D/g, '');
+  var sort      = document.getElementById('sortBy').value;
 
   var experience = getCheckedValues('experienceGroup').join(',');
-  var jobType = getCheckedValues('jobTypeGroup').join(',');
-  var workplace = getCheckedValues('workplaceGroup').join(',');
+  var jobType    = getCheckedValues('jobTypeGroup').join(',');
+  var workplace  = getCheckedValues('workplaceGroup').join(',');
 
   var withIds = companies.filter(function (c) { return c.id; });
   var fC = withIds.map(function (c) { return c.id; }).join(',');
 
   saveState();
 
+  // Build query string — raw commas for f_C, + for spaces (matches LinkedIn's format)
   var parts = [];
-  if (keyword) parts.push('keywords=' + encodeURIComponent(keyword).replace(/%20/g, '+'));
-  if (fC) parts.push('f_C=' + fC);
-  if (geoId) parts.push('geoId=' + geoId);
-  if (timeframe) parts.push('f_TPR=' + encodeURIComponent(timeframe));
+  if (keyword)    parts.push('keywords=' + encodeURIComponent(keyword).replace(/%20/g, '+'));
+  if (fC)         parts.push('f_C=' + fC);
+  if (geoId)      parts.push('geoId=' + geoId);
+  if (timeframe)  parts.push('f_TPR=' + encodeURIComponent(timeframe));
   if (experience) parts.push('f_E=' + experience);
-  if (jobType) parts.push('f_JT=' + jobType);
-  if (workplace) parts.push('f_WT=' + workplace);
-  if (sort) parts.push('sortBy=' + encodeURIComponent(sort));
+  if (jobType)    parts.push('f_JT=' + jobType);
+  if (workplace)  parts.push('f_WT=' + workplace);
+  if (sort)       parts.push('sortBy=' + encodeURIComponent(sort));
 
-  var url = LINKEDIN_SEARCH_BASE + parts.join('&');
+  var url = LINKEDIN_BASE + parts.join('&');
 
-  var display = document.getElementById('urlDisplay');
-  var openBtn = document.getElementById('openBtn');
+  // Update the UI
+  var display      = document.getElementById('urlDisplay');
+  var openBtn      = document.getElementById('openBtn');
   var includesText = document.getElementById('includesText');
-  var hasContent = keyword || fC || geoId || timeframe;
+  var hasContent   = keyword || fC || geoId || timeframe;
 
   if (!hasContent) {
     display.textContent = 'Configure your search parameters and add company IDs to generate a URL';
     display.className = 'url-display empty';
-    openBtn.style.display = 'none';
+    openBtn.hidden = true;
     includesText.textContent = '';
   } else {
     display.textContent = url;
     display.className = 'url-display active';
-    openBtn.style.display = 'inline-flex';
+    openBtn.hidden = false;
     openBtn.href = url;
     includesText.textContent = withIds.length > 0
       ? withIds.length + ' compan' + (withIds.length === 1 ? 'y' : 'ies') + ': ' + withIds.map(function (c) { return c.name; }).join(', ')
@@ -1072,22 +1438,34 @@ function buildUrl() {
    ══════════════════════════════════════ */
 function copyUrl() {
   var url = buildUrl();
+
   var onSuccess = function () {
     var btn = document.getElementById('copyBtn');
     btn.textContent = 'Copied!';
     setTimeout(function () { btn.textContent = 'Copy URL'; }, 2000);
     toast('URL copied to clipboard');
   };
+
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(url).then(onSuccess).catch(function () { fallbackCopy(url); onSuccess(); });
-  } else { fallbackCopy(url); onSuccess(); }
+    navigator.clipboard.writeText(url).then(onSuccess).catch(function () {
+      fallbackCopy(url);
+      onSuccess();
+    });
+  } else {
+    fallbackCopy(url);
+    onSuccess();
+  }
 }
 
 function fallbackCopy(text) {
   var ta = document.createElement('textarea');
-  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-  document.body.appendChild(ta); ta.select();
-  document.execCommand('copy'); document.body.removeChild(ta);
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
 }
 
 /* ══════════════════════════════════════
@@ -1095,9 +1473,26 @@ function fallbackCopy(text) {
    ══════════════════════════════════════ */
 function toast(msg) {
   var el = document.getElementById('toast');
-  el.textContent = msg; el.classList.add('show');
+  el.textContent = msg;
+  el.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2200);
+}
+
+function resetAll() {
+  if (!confirm('Reset everything? This will clear all filters, company list, and saved data.')) return;
+
+  document.getElementById('keyword').value = '';
+  document.getElementById('timeframe').value = '';
+  document.getElementById('geoId').value = '';
+  document.getElementById('sortBy').value = '';
+  document.querySelectorAll('.chip-group input[type="checkbox"]')
+    .forEach(function (cb) { cb.checked = false; });
+
+  companies = [];
+  saveState();
+  render();
+  toast('Everything has been reset');
 }
 
 function toggleHelp(trigger) {
@@ -1111,10 +1506,12 @@ function toggleHelp(trigger) {
 function fillGeoId(id) {
   document.getElementById('geoId').value = id;
   buildUrl();
-  // Close the geo help panel
+
+  // Close the help panel
   var trigger = document.querySelector('[aria-controls="geoid-help"]');
-  if (trigger) { trigger.setAttribute('aria-expanded', 'false'); }
+  if (trigger) trigger.setAttribute('aria-expanded', 'false');
   document.getElementById('geoid-help').classList.remove('open');
+
   toast('Geo ID set to ' + id);
 }
 
@@ -1135,42 +1532,51 @@ document.querySelectorAll('.geo-id-btn').forEach(function (btn) {
   });
 });
 
-// Param fields — single handler via event delegation
+// Param fields — event delegation on the grid
 document.querySelector('.params-grid').addEventListener('input', buildUrl);
 document.querySelector('.params-grid').addEventListener('change', buildUrl);
 
-// Company list — delegated click and input handlers
+// Company list — delegated handlers
 document.getElementById('companyList').addEventListener('input', function (e) {
-  if (e.target.dataset.index !== undefined) { updateId(Number(e.target.dataset.index), e.target.value); }
+  if (e.target.dataset.index !== undefined) {
+    updateId(Number(e.target.dataset.index), e.target.value);
+  }
 });
 document.getElementById('companyList').addEventListener('click', function (e) {
   var btn = e.target.closest('[data-remove]');
   if (btn) removeCompany(Number(btn.dataset.remove));
 });
 
-// Toolbar buttons
+// Toolbar
 document.getElementById('exportBtn').addEventListener('click', exportCompanies);
-document.getElementById('importBtn').addEventListener('click', function () { document.getElementById('importFile').click(); });
+document.getElementById('importBtn').addEventListener('click', function () {
+  document.getElementById('importFile').click();
+});
 document.getElementById('importFile').addEventListener('change', importCompanies);
 document.getElementById('clearBtn').addEventListener('click', clearAllCompanies);
 
-// Bulk add
+// Add companies
 document.getElementById('bulkAddBtn').addEventListener('click', bulkAddIds);
-
-// Single add
 document.getElementById('addBtn').addEventListener('click', addCompany);
-document.getElementById('addName').addEventListener('keydown', function (e) { if (e.key === 'Enter') addCompany(); });
-document.getElementById('addId').addEventListener('keydown', function (e) { if (e.key === 'Enter') addCompany(); });
+document.getElementById('addName').addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') addCompany();
+});
+document.getElementById('addId').addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') addCompany();
+});
 
-// Copy URL
+// Output
 document.getElementById('copyBtn').addEventListener('click', copyUrl);
+
+// Danger zone
+document.getElementById('resetAllBtn').addEventListener('click', resetAll);
 
 /* ══════════════════════════════════════
    Init
    ══════════════════════════════════════ */
 loadState();
 render();
-</script>
 
+</script>
 </body>
 </html>
