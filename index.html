@@ -530,8 +530,8 @@ label {
   .getting-started li::before { width: 18px; height: 18px; font-size: 9px; }
   .getting-started .autosave-note { font-size: 10px; }
 
-  /* Params grid — single column, tighter */
-  .params-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  /* Params grid — single column */
+  .params-grid { grid-template-columns: 1fr; gap: 10px; }
 
   /* Company row — wider ID input for fat fingers */
   .company-row {
@@ -587,7 +587,8 @@ label {
 
   /* Help panels — inline flow on mobile */
   .section-title { flex-wrap: wrap; }
-  .help-wrap { position: static; width: 100%; }
+  .section-title .help-wrap { position: static; width: 100%; }
+  .label-row .help-wrap { position: static; width: auto; }
   .help-panel {
     position: relative;
     top: auto;
