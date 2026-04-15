@@ -36,7 +36,6 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
 
 body {
@@ -107,10 +106,7 @@ button, a, input, select, textarea {
   color: var(--success);
   line-height: 1.4;
 }
-.privacy-banner .shield {
-  font-size: 15px;
-  flex-shrink: 0;
-}
+.privacy-banner .shield { font-size: 15px; flex-shrink: 0; }
 
 /* ── Getting Started ── */
 .getting-started {
@@ -171,10 +167,7 @@ button, a, input, select, textarea {
   align-items: center;
   gap: 6px;
 }
-.getting-started .autosave-note .save-icon {
-  color: var(--success);
-  font-size: 12px;
-}
+.getting-started .autosave-note .save-icon { color: var(--success); font-size: 12px; }
 
 /* ── Sections ── */
 .section { margin-bottom: 28px; position: relative; }
@@ -219,60 +212,58 @@ button, a, input, select, textarea {
 }
 .help-trigger:hover { border-color: var(--accent-border); }
 .help-trigger .help-qmark {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--accent-dim);
-  border: 1px solid var(--accent-border);
-  color: var(--accent);
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--accent-dim); border: 1px solid var(--accent-border);
+  color: var(--accent); font-family: var(--font-display);
+  font-size: 11px; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 .help-trigger .help-label { flex: 1; }
 .help-trigger .arrow { transition: transform var(--transition); font-size: 10px; }
 .help-trigger[aria-expanded="true"] .arrow { transform: rotate(90deg); }
 .help-trigger[aria-expanded="true"] .help-qmark {
-  background: var(--accent);
-  color: var(--bg-primary);
-  border-color: var(--accent);
+  background: var(--accent); color: var(--bg-primary); border-color: var(--accent);
 }
 .help-content {
-  max-height: 0;
-  overflow: hidden;
+  max-height: 0; overflow: hidden;
   transition: max-height 300ms ease, margin 300ms ease, opacity 200ms ease;
   opacity: 0;
 }
-.help-content.open {
-  max-height: 600px;
-  margin-top: 12px;
-  opacity: 1;
-}
+.help-content.open { max-height: 600px; margin-top: 12px; opacity: 1; }
 .help-box {
   background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
-  padding: 16px;
-  font-size: 12px;
-  line-height: 1.8;
+  padding: 16px; font-size: 12px; line-height: 1.8;
   color: var(--text-secondary);
 }
 .help-box strong { color: var(--text-primary); font-weight: 600; }
 .help-box code {
   background: var(--bg-tertiary);
-  padding: 2px 6px;
-  border-radius: 3px;
-  color: var(--success);
-  font-size: 11px;
+  padding: 2px 6px; border-radius: 3px;
+  color: var(--success); font-size: 11px;
 }
 .help-box .divider {
   border-top: 1px solid var(--border-subtle);
-  margin: 10px 0;
-  padding-top: 10px;
+  margin: 10px 0; padding-top: 10px;
+}
+
+/* ── Clickable Geo IDs ── */
+.geo-id-btn {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  color: var(--success);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.geo-id-btn:hover {
+  background: var(--success-dim);
+  border-color: var(--success-border);
+  color: var(--success);
 }
 
 /* ── Form Controls ── */
@@ -284,7 +275,7 @@ input, select, textarea {
   color: var(--text-primary);
   padding: 10px 12px;
   border-radius: var(--radius);
-  font-size: 16px; /* prevents iOS zoom on focus */
+  font-size: 16px;
   outline: none;
   transition: border-color var(--transition);
 }
@@ -293,13 +284,54 @@ input::placeholder, textarea::placeholder { color: var(--text-muted); }
 select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2358585f' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
 
 label {
-  font-size: 10px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  display: block;
-  margin-bottom: 6px;
+  font-size: 10px; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 1px;
+  display: block; margin-bottom: 6px; font-weight: 500;
+}
+
+/* ── Chip/Pill Checkbox Group ── */
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip-group input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.chip-group label.chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
   font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: inline-flex;
+  align-items: center;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-bottom: 0;
+  user-select: none;
+}
+.chip-group label.chip:hover {
+  border-color: var(--accent-border);
+  color: var(--text-primary);
+}
+.chip-group input[type="checkbox"]:checked + label.chip {
+  background: var(--accent-dim);
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+.chip-group input[type="checkbox"]:focus-visible + label.chip {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* ── Params Grid ── */
@@ -308,11 +340,11 @@ label {
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 12px;
 }
+.params-full { grid-column: 1 / -1; }
 
 /* ── Company List ── */
 .company-list {
-  max-height: 460px;
-  overflow-y: auto;
+  max-height: 460px; overflow-y: auto;
   border-radius: var(--radius);
   border: 1px solid var(--border-subtle);
   -webkit-overflow-scrolling: touch;
@@ -320,8 +352,7 @@ label {
 .company-row {
   display: grid;
   grid-template-columns: 1fr 130px 28px;
-  gap: 8px;
-  align-items: center;
+  gap: 8px; align-items: center;
   padding: 7px 12px;
   border-bottom: 1px solid var(--bg-primary);
   transition: background var(--transition);
@@ -331,21 +362,15 @@ label {
 .company-row:nth-child(even) { background: var(--bg-tertiary); }
 .company-row:hover { background: var(--bg-elevated); }
 .company-name {
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 12px; font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .company-name.has-id { color: var(--success); }
 .company-name.no-id { color: var(--text-secondary); }
 .company-link {
-  font-size: 10px;
-  color: var(--accent);
-  margin-left: 8px;
-  text-decoration: none;
-  opacity: 0.6;
-  transition: opacity var(--transition);
+  font-size: 10px; color: var(--accent);
+  margin-left: 8px; text-decoration: none;
+  opacity: 0.6; transition: opacity var(--transition);
 }
 .company-link:hover { opacity: 1; }
 .id-input {
@@ -358,15 +383,10 @@ label {
 
 /* ── Buttons ── */
 .btn {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  padding: 8px 14px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: all var(--transition);
-  border: 1px solid;
-  white-space: nowrap;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  padding: 8px 14px; border-radius: var(--radius-sm);
+  cursor: pointer; transition: all var(--transition);
+  border: 1px solid; white-space: nowrap;
 }
 .btn-accent { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
 .btn-accent:hover { background: rgba(34, 211, 238, 0.2); border-color: var(--accent); }
@@ -377,84 +397,45 @@ label {
 .btn-ghost { background: transparent; border-color: var(--border); color: var(--text-secondary); }
 .btn-ghost:hover { border-color: var(--text-muted); color: var(--text-primary); }
 .icon-btn {
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  cursor: pointer;
-  font-size: 15px;
-  padding: 0;
-  line-height: 1;
-  font-family: var(--font-mono);
-  transition: color var(--transition);
+  background: none; border: none; color: var(--text-muted);
+  cursor: pointer; font-size: 15px; padding: 0; line-height: 1;
+  font-family: var(--font-mono); transition: color var(--transition);
 }
 .icon-btn:hover { color: var(--danger); }
 
 /* ── Action rows ── */
 .add-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 8px;
-  margin-bottom: 12px;
+  display: grid; grid-template-columns: 1fr 1fr auto;
+  gap: 8px; margin-bottom: 12px;
 }
 .add-row input { font-size: 12px; padding: 8px 12px; }
 .bulk-row { margin-bottom: 12px; }
-.bulk-row .bulk-inner {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 8px;
-}
+.bulk-row .bulk-inner { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
 .bulk-row textarea {
-  font-size: 12px;
-  padding: 8px 12px;
-  min-height: 42px;
-  max-height: 100px;
-  resize: vertical;
+  font-size: 12px; padding: 8px 12px;
+  min-height: 42px; max-height: 100px; resize: vertical;
 }
-.toolbar {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.manage-list {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border-subtle);
-}
+.toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
+.manage-list { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-subtle); }
 .manage-header { margin-bottom: 10px; }
-.manage-note {
-  font-size: 11px;
-  color: var(--text-muted);
-  line-height: 1.5;
-  margin-top: 2px;
-}
+.manage-note { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-top: 2px; }
 
 /* ── Output ── */
 .output-box {
   background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius);
-  padding: 16px;
+  border-radius: var(--radius); padding: 16px;
 }
 .output-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-  gap: 8px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 10px; flex-wrap: wrap; gap: 8px;
 }
 .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
 .url-display {
-  background: var(--bg-primary);
-  border-radius: var(--radius);
-  padding: 14px;
-  font-size: 11px;
-  line-height: 1.7;
-  word-break: break-all;
-  font-family: var(--font-mono);
-  user-select: all;
-  cursor: text;
-  min-height: 44px;
+  background: var(--bg-primary); border-radius: var(--radius);
+  padding: 14px; font-size: 11px; line-height: 1.7;
+  word-break: break-all; font-family: var(--font-mono);
+  user-select: all; cursor: text; min-height: 44px;
   border: 1px solid var(--border-subtle);
 }
 .url-display.active { color: var(--success); border-color: var(--success-border); }
@@ -463,138 +444,75 @@ label {
 
 /* ── Toast ── */
 .toast {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: var(--bg-elevated);
-  border: 1px solid var(--success-border);
-  color: var(--success);
-  padding: 10px 18px;
-  border-radius: var(--radius);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 200ms ease;
-  pointer-events: none;
-  z-index: 1000;
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--bg-elevated); border: 1px solid var(--success-border);
+  color: var(--success); padding: 10px 18px; border-radius: var(--radius);
+  font-family: var(--font-mono); font-size: 12px;
+  opacity: 0; transform: translateY(10px);
+  transition: all 200ms ease; pointer-events: none; z-index: 1000;
 }
 .toast.show { opacity: 1; transform: translateY(0); }
 
 /* ── Footer ── */
 .footer {
-  margin-top: 48px;
-  padding-top: 20px;
+  margin-top: 48px; padding-top: 20px;
   border-top: 1px solid var(--border-subtle);
-  font-size: 11px;
-  color: var(--text-muted);
-  line-height: 1.6;
+  font-size: 11px; color: var(--text-muted); line-height: 1.6;
 }
 .footer a { color: var(--accent); text-decoration: none; }
 .footer a:hover { text-decoration: underline; }
+.footer .star-prompt {
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 11px; color: var(--text-muted);
+}
+.footer .star-prompt a { color: var(--warning); }
 
-/* ══════════════════════════════════════
-   Desktop override (> 600px)
-   Reset font-size on inputs back to 13px
-   (16px base prevents iOS zoom, desktop can be smaller)
-   ══════════════════════════════════════ */
+/* ── Desktop override ── */
 @media (min-width: 601px) {
   input, select, textarea { font-size: 13px; }
 }
 
-/* ══════════════════════════════════════
-   Mobile (max-width: 600px)
-   ══════════════════════════════════════ */
+/* ── Mobile ── */
 @media (max-width: 600px) {
-  /* Layout */
   .app { padding: 16px 14px 60px; }
   .section { margin-bottom: 20px; }
   .header { margin-bottom: 28px; }
   .header p { font-size: 12px; }
-
-  /* Privacy banner */
   .privacy-banner { font-size: 11px; padding: 8px 12px; margin-bottom: 12px; }
-
-  /* Getting started */
   .getting-started { padding: 12px 14px; margin-bottom: 20px; }
   .getting-started li { font-size: 11px; gap: 8px; }
   .getting-started li::before { width: 18px; height: 18px; font-size: 9px; }
   .getting-started .autosave-note { font-size: 10px; }
-
-  /* Params grid — single column */
   .params-grid { grid-template-columns: 1fr; gap: 10px; }
-
-  /* Company row — wider ID input for fat fingers */
-  .company-row {
-    grid-template-columns: 1fr 110px 36px;
-    gap: 6px;
-    padding: 8px 10px;
-  }
+  .chip-group label.chip { font-size: 11px; padding: 8px 12px; min-height: 36px; }
+  .company-row { grid-template-columns: 1fr 110px 36px; gap: 6px; padding: 8px 10px; }
   .company-name { font-size: 11px; }
   .company-link { font-size: 9px; }
   .id-input { font-size: 11px !important; padding: 6px 6px !important; }
-  .icon-btn {
-    font-size: 18px;
-    width: 36px;
-    height: 36px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Bulk add — stack vertically */
-  .bulk-row .bulk-inner {
-    grid-template-columns: 1fr;
-  }
+  .icon-btn { font-size: 18px; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; }
+  .bulk-row .bulk-inner { grid-template-columns: 1fr; }
   .bulk-row .bulk-inner .btn { width: 100%; }
-
-  /* Single add — stack vertically */
-  .add-row {
-    grid-template-columns: 1fr;
-  }
+  .add-row { grid-template-columns: 1fr; }
   .add-row .btn { width: 100%; }
-
-  /* Toolbar — equal width buttons */
-  .toolbar {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px;
-  }
+  .toolbar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
   .toolbar .btn { text-align: center; padding: 10px 8px; }
-
-  /* All buttons — minimum 44px touch target */
   .btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
-
-  /* Inputs — minimum 44px touch target */
   input, select, textarea { min-height: 44px; }
-
-  /* Output */
   .output-header { flex-direction: column; align-items: stretch; }
   .output-header .section-title { margin-bottom: 4px; }
   .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .btn-group .btn { text-align: center; min-height: 44px; display: flex; align-items: center; justify-content: center; }
   .url-display { font-size: 10px; padding: 12px; line-height: 1.6; }
   .includes-text { font-size: 10px; }
-
-  /* Help collapsibles on mobile */
   .help-trigger { font-size: 11px; padding: 10px 12px; min-height: 44px; }
   .help-box { font-size: 11px; padding: 14px; }
   .help-box code { font-size: 10px; }
-
-  /* Toast — centered on mobile */
-  .toast {
-    left: 14px;
-    right: 14px;
-    bottom: 16px;
-    text-align: center;
-    font-size: 11px;
-  }
-
-  /* Footer */
+  .geo-id-btn { font-size: 10px; padding: 4px 8px; min-height: 32px; }
+  .toast { left: 14px; right: 14px; bottom: 16px; text-align: center; font-size: 11px; }
   .footer { margin-top: 32px; font-size: 10px; }
 }
 
-/* Extra small (320px) */
 @media (max-width: 374px) {
   .params-grid { grid-template-columns: 1fr; }
   .company-row { grid-template-columns: 1fr 90px 32px; }
@@ -669,44 +587,47 @@ label {
         <input id="geoId" type="text" placeholder="e.g. 101452733">
       </div>
       <div>
-        <label for="experienceLevel">Experience Level</label>
-        <select id="experienceLevel">
-          <option value="">Any</option>
-          <option value="1">Internship</option>
-          <option value="2">Entry level</option>
-          <option value="3">Associate</option>
-          <option value="4">Mid-Senior level</option>
-          <option value="5">Director</option>
-          <option value="6">Executive</option>
-        </select>
-      </div>
-      <div>
-        <label for="jobType">Job Type</label>
-        <select id="jobType">
-          <option value="">Any</option>
-          <option value="F">Full-time</option>
-          <option value="P">Part-time</option>
-          <option value="C">Contract</option>
-          <option value="T">Temporary</option>
-          <option value="I">Internship</option>
-        </select>
-      </div>
-      <div>
-        <label for="workplaceType">Workplace</label>
-        <select id="workplaceType">
-          <option value="">Any</option>
-          <option value="1">On-site</option>
-          <option value="2">Remote</option>
-          <option value="3">Hybrid</option>
-        </select>
-      </div>
-      <div>
         <label for="sortBy">Sort By</label>
         <select id="sortBy">
           <option value="">Most relevant</option>
           <option value="DD">Most recent</option>
         </select>
       </div>
+
+      <!-- Multi-select: Experience Level -->
+      <fieldset class="params-full" style="border:0;padding:0">
+        <legend><label style="margin-bottom:6px">Experience Level</label></legend>
+        <div class="chip-group" id="experienceGroup">
+          <input type="checkbox" id="exp_1" value="1"><label class="chip" for="exp_1">Internship</label>
+          <input type="checkbox" id="exp_2" value="2"><label class="chip" for="exp_2">Entry level</label>
+          <input type="checkbox" id="exp_3" value="3"><label class="chip" for="exp_3">Associate</label>
+          <input type="checkbox" id="exp_4" value="4"><label class="chip" for="exp_4">Mid-Senior</label>
+          <input type="checkbox" id="exp_5" value="5"><label class="chip" for="exp_5">Director</label>
+          <input type="checkbox" id="exp_6" value="6"><label class="chip" for="exp_6">Executive</label>
+        </div>
+      </fieldset>
+
+      <!-- Multi-select: Job Type -->
+      <fieldset class="params-full" style="border:0;padding:0">
+        <legend><label style="margin-bottom:6px">Job Type</label></legend>
+        <div class="chip-group" id="jobTypeGroup">
+          <input type="checkbox" id="jt_F" value="F"><label class="chip" for="jt_F">Full-time</label>
+          <input type="checkbox" id="jt_P" value="P"><label class="chip" for="jt_P">Part-time</label>
+          <input type="checkbox" id="jt_C" value="C"><label class="chip" for="jt_C">Contract</label>
+          <input type="checkbox" id="jt_T" value="T"><label class="chip" for="jt_T">Temporary</label>
+          <input type="checkbox" id="jt_I" value="I"><label class="chip" for="jt_I">Internship</label>
+        </div>
+      </fieldset>
+
+      <!-- Multi-select: Workplace -->
+      <fieldset class="params-full" style="border:0;padding:0">
+        <legend><label style="margin-bottom:6px">Workplace</label></legend>
+        <div class="chip-group" id="workplaceGroup">
+          <input type="checkbox" id="wt_1" value="1"><label class="chip" for="wt_1">On-site</label>
+          <input type="checkbox" id="wt_2" value="2"><label class="chip" for="wt_2">Remote</label>
+          <input type="checkbox" id="wt_3" value="3"><label class="chip" for="wt_3">Hybrid</label>
+        </div>
+      </fieldset>
     </div>
 
     <!-- Geo ID Reference -->
@@ -717,11 +638,27 @@ label {
     </button>
     <div class="help-content" id="geoid-help" role="region">
       <div class="help-box">
-        <p><strong>Countries:</strong></p>
-        <p><code>101452733</code> Australia &middot; <code>101165590</code> United Kingdom &middot; <code>103644278</code> United States &middot; <code>101174742</code> Canada &middot; <code>102095887</code> New Zealand &middot; <code>102713980</code> India &middot; <code>101282230</code> Germany</p>
+        <p><strong>Countries:</strong> <span style="font-size:10px;color:var(--text-muted)">(tap to use)</span></p>
+        <p>
+          <button class="geo-id-btn" data-geoid="101452733">101452733</button> Australia &middot;
+          <button class="geo-id-btn" data-geoid="101165590">101165590</button> United Kingdom &middot;
+          <button class="geo-id-btn" data-geoid="103644278">103644278</button> United States &middot;
+          <button class="geo-id-btn" data-geoid="101174742">101174742</button> Canada &middot;
+          <button class="geo-id-btn" data-geoid="102095887">102095887</button> New Zealand &middot;
+          <button class="geo-id-btn" data-geoid="102713980">102713980</button> India &middot;
+          <button class="geo-id-btn" data-geoid="101282230">101282230</button> Germany
+        </p>
         <div class="divider">
           <p><strong>Cities:</strong></p>
-          <p><code>100009818</code> Sydney &middot; <code>103116251</code> Melbourne &middot; <code>104769905</code> Brisbane &middot; <code>105243367</code> Perth &middot; <code>102257491</code> London &middot; <code>102571732</code> New York &middot; <code>100727388</code> San Francisco</p>
+          <p>
+            <button class="geo-id-btn" data-geoid="100009818">100009818</button> Sydney &middot;
+            <button class="geo-id-btn" data-geoid="103116251">103116251</button> Melbourne &middot;
+            <button class="geo-id-btn" data-geoid="104769905">104769905</button> Brisbane &middot;
+            <button class="geo-id-btn" data-geoid="105243367">105243367</button> Perth &middot;
+            <button class="geo-id-btn" data-geoid="102257491">102257491</button> London &middot;
+            <button class="geo-id-btn" data-geoid="102571732">102571732</button> New York &middot;
+            <button class="geo-id-btn" data-geoid="100727388">100727388</button> San Francisco
+          </p>
         </div>
         <div class="divider">
           <p>Find more: search LinkedIn Jobs for a location, then copy the <code>geoId=</code> value from the URL.</p>
@@ -824,6 +761,9 @@ label {
       <a href="https://github.com/brodiecox/linkedin-job-tool" target="_blank" rel="noopener noreferrer">View on GitHub</a> ·
       Not affiliated with LinkedIn.
     </p>
+    <div class="star-prompt">
+      Found this useful? <a href="https://github.com/brodiecox/linkedin-job-tool" target="_blank" rel="noopener noreferrer">&#9733; Star it on GitHub</a> — it helps others find it.
+    </div>
   </footer>
 </div>
 
@@ -837,7 +777,12 @@ label {
    Constants & State
    ══════════════════════════════════════ */
 var STORAGE_KEY = 'li-search-builder';
-var PARAM_FIELDS = ['keyword', 'timeframe', 'geoId', 'experienceLevel', 'jobType', 'workplaceType', 'sortBy'];
+var SINGLE_FIELDS = ['keyword', 'timeframe', 'geoId', 'sortBy'];
+var MULTI_FIELDS = {
+  experienceGroup: 'f_E',
+  jobTypeGroup: 'f_JT',
+  workplaceGroup: 'f_WT'
+};
 var LINKEDIN_SEARCH_BASE = 'https://www.linkedin.com/jobs/search/?';
 
 var companies = [];
@@ -846,22 +791,35 @@ var toastTimer = null;
 /* ══════════════════════════════════════
    Utilities
    ══════════════════════════════════════ */
-
-/** Sanitise a string for safe HTML insertion. */
 function esc(str) {
   var div = document.createElement('div');
   div.textContent = str || '';
   return div.innerHTML;
 }
 
-/** Strip everything except digits from a string. */
 function sanitizeId(val) {
   return String(val || '').replace(/\D/g, '');
 }
 
-/** Build a safe LinkedIn company URL from a slug or numeric ID. */
 function companyUrl(slugOrId) {
   return 'https://www.linkedin.com/company/' + encodeURIComponent(slugOrId);
+}
+
+/** Get checked values from a chip-group by container ID. */
+function getCheckedValues(groupId) {
+  var checks = document.querySelectorAll('#' + groupId + ' input[type="checkbox"]:checked');
+  var vals = [];
+  checks.forEach(function (c) { vals.push(c.value); });
+  return vals;
+}
+
+/** Set checked state on a chip-group from an array of values. */
+function setCheckedValues(groupId, values) {
+  if (!Array.isArray(values)) return;
+  var checks = document.querySelectorAll('#' + groupId + ' input[type="checkbox"]');
+  checks.forEach(function (c) {
+    c.checked = values.indexOf(c.value) !== -1;
+  });
 }
 
 /* ══════════════════════════════════════
@@ -874,17 +832,21 @@ function loadState() {
     var data = JSON.parse(raw);
     if (Array.isArray(data.companies)) {
       companies = data.companies.map(function (c) {
-        return {
-          name: String(c.name || ''),
-          slug: String(c.slug || ''),
-          id: sanitizeId(c.id),
-        };
+        return { name: String(c.name || ''), slug: String(c.slug || ''), id: sanitizeId(c.id) };
       });
     }
     if (data.params) {
-      PARAM_FIELDS.forEach(function (f) {
+      SINGLE_FIELDS.forEach(function (f) {
         var el = document.getElementById(f);
         if (el && data.params[f] !== undefined) el.value = data.params[f];
+      });
+      // Multi-select fields
+      Object.keys(MULTI_FIELDS).forEach(function (groupId) {
+        var key = MULTI_FIELDS[groupId];
+        if (data.params[key]) {
+          var vals = Array.isArray(data.params[key]) ? data.params[key] : String(data.params[key]).split(',');
+          setCheckedValues(groupId, vals);
+        }
       });
     }
   } catch (e) {
@@ -895,9 +857,12 @@ function loadState() {
 function saveState() {
   try {
     var params = {};
-    PARAM_FIELDS.forEach(function (f) {
+    SINGLE_FIELDS.forEach(function (f) {
       var el = document.getElementById(f);
       if (el) params[f] = el.value;
+    });
+    Object.keys(MULTI_FIELDS).forEach(function (groupId) {
+      params[MULTI_FIELDS[groupId]] = getCheckedValues(groupId);
     });
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ companies: companies, params: params }));
   } catch (e) { /* localStorage full or unavailable */ }
@@ -922,12 +887,10 @@ function render() {
     var hasId = !!c.id;
     var nameClass = 'company-name ' + (hasId ? 'has-id' : 'no-id');
     var inputClass = 'id-input' + (hasId ? ' filled' : '');
-
     var linkHtml = '';
     if (c.id) {
       linkHtml = '<a class="company-link" href="' + esc(companyUrl(c.id)) + '" target="_blank" rel="noopener noreferrer">verify&nbsp;&#8599;</a>';
     }
-
     return '<div class="company-row" role="listitem">' +
       '<div style="min-width:0;overflow:hidden">' +
         '<span class="' + nameClass + '" title="' + esc(c.name) + '">' + esc(c.name) + '</span>' +
@@ -953,26 +916,16 @@ function updateId(index, val) {
   saveState();
 
   var input = document.querySelectorAll('.id-input')[index];
-  if (input) {
-    input.classList.toggle('filled', !!cleaned);
-    if (input.value !== cleaned) input.value = cleaned;
-  }
+  if (input) { input.classList.toggle('filled', !!cleaned); if (input.value !== cleaned) input.value = cleaned; }
   var nameEl = document.querySelectorAll('.company-name')[index];
-  if (nameEl) {
-    nameEl.classList.toggle('has-id', !!cleaned);
-    nameEl.classList.toggle('no-id', !cleaned);
-  }
+  if (nameEl) { nameEl.classList.toggle('has-id', !!cleaned); nameEl.classList.toggle('no-id', !cleaned); }
 
   var withIds = companies.filter(function (c) { return c.id; });
   document.getElementById('companyCount').textContent = withIds.length + ' / ' + companies.length;
   buildUrl();
 }
 
-function removeCompany(index) {
-  companies.splice(index, 1);
-  saveState();
-  render();
-}
+function removeCompany(index) { companies.splice(index, 1); saveState(); render(); }
 
 function addCompany() {
   var nameInput = document.getElementById('addName');
@@ -980,51 +933,35 @@ function addCompany() {
   var name = nameInput.value.trim();
   var id = sanitizeId(idInput.value);
   if (!name && !id) return;
-
   var displayName = name || (id ? 'Company #' + id : '');
   companies.push({ name: displayName, slug: '', id: id });
-  nameInput.value = '';
-  idInput.value = '';
-  saveState();
-  render();
+  nameInput.value = ''; idInput.value = '';
+  saveState(); render();
   toast('Added "' + displayName + '"');
 }
 
 function bulkAddIds() {
   var raw = document.getElementById('bulkIds').value;
   var ids = raw.split(/[,\s]+/).map(sanitizeId).filter(Boolean);
-  var unique = [];
-  var seen = {};
+  var unique = [], seen = {};
   ids.forEach(function (id) { if (!seen[id]) { seen[id] = true; unique.push(id); } });
-
   var existing = {};
   companies.forEach(function (c) { if (c.id) existing[c.id] = true; });
   var added = 0;
-
   unique.forEach(function (id) {
-    if (!existing[id]) {
-      companies.push({ name: 'Company #' + id, slug: '', id: id });
-      existing[id] = true;
-      added++;
-    }
+    if (!existing[id]) { companies.push({ name: 'Company #' + id, slug: '', id: id }); existing[id] = true; added++; }
   });
-
   if (added > 0) {
     document.getElementById('bulkIds').value = '';
-    saveState();
-    render();
+    saveState(); render();
     toast('Added ' + added + ' company ID' + (added > 1 ? 's' : ''));
-  } else {
-    toast('No new IDs to add');
-  }
+  } else { toast('No new IDs to add'); }
 }
 
 function clearAllCompanies() {
   if (companies.length === 0) return;
   if (!confirm('Remove all ' + companies.length + ' companies?')) return;
-  companies = [];
-  saveState();
-  render();
+  companies = []; saveState(); render();
   toast('All companies cleared');
 }
 
@@ -1033,13 +970,10 @@ function clearAllCompanies() {
    ══════════════════════════════════════ */
 function exportCompanies() {
   if (companies.length === 0) { toast('Nothing to export'); return; }
-  var data = JSON.stringify(companies, null, 2);
-  var blob = new Blob([data], { type: 'application/json' });
+  var blob = new Blob([JSON.stringify(companies, null, 2)], { type: 'application/json' });
   var url = URL.createObjectURL(blob);
   var a = document.createElement('a');
-  a.href = url;
-  a.download = 'linkedin-companies.json';
-  a.click();
+  a.href = url; a.download = 'linkedin-companies.json'; a.click();
   URL.revokeObjectURL(url);
   toast('Exported company list');
 }
@@ -1047,23 +981,15 @@ function exportCompanies() {
 function importCompanies(event) {
   var file = event.target.files[0];
   if (!file) return;
-
-  if (file.size > 1048576) {
-    toast('File too large (max 1 MB)');
-    event.target.value = '';
-    return;
-  }
-
+  if (file.size > 1048576) { toast('File too large (max 1 MB)'); event.target.value = ''; return; }
   var reader = new FileReader();
   reader.onload = function (e) {
     try {
       var data = JSON.parse(e.target.result);
       if (!Array.isArray(data)) throw new Error('Expected an array');
-
       var existing = {};
       companies.forEach(function (c) { if (c.id) existing[c.id] = true; });
       var added = 0;
-
       data.forEach(function (item) {
         if (typeof item !== 'object' || item === null) return;
         var id = sanitizeId(item.id);
@@ -1071,16 +997,11 @@ function importCompanies(event) {
         var slug = String(item.slug || '');
         if (id && existing[id]) return;
         companies.push({ name: name, slug: slug, id: id });
-        if (id) existing[id] = true;
-        added++;
+        if (id) existing[id] = true; added++;
       });
-
-      saveState();
-      render();
+      saveState(); render();
       toast('Imported ' + added + ' compan' + (added === 1 ? 'y' : 'ies'));
-    } catch (err) {
-      toast('Invalid JSON file');
-    }
+    } catch (err) { toast('Invalid JSON file'); }
   };
   reader.readAsText(file);
   event.target.value = '';
@@ -1093,10 +1014,12 @@ function buildUrl() {
   var keyword = document.getElementById('keyword').value.trim();
   var timeframe = document.getElementById('timeframe').value;
   var geoId = document.getElementById('geoId').value.trim().replace(/\D/g, '');
-  var experience = document.getElementById('experienceLevel').value;
-  var jobType = document.getElementById('jobType').value;
-  var workplace = document.getElementById('workplaceType').value;
   var sort = document.getElementById('sortBy').value;
+
+  var experience = getCheckedValues('experienceGroup').join(',');
+  var jobType = getCheckedValues('jobTypeGroup').join(',');
+  var workplace = getCheckedValues('workplaceGroup').join(',');
+
   var withIds = companies.filter(function (c) { return c.id; });
   var fC = withIds.map(function (c) { return c.id; }).join(',');
 
@@ -1107,9 +1030,9 @@ function buildUrl() {
   if (fC) parts.push('f_C=' + fC);
   if (geoId) parts.push('geoId=' + geoId);
   if (timeframe) parts.push('f_TPR=' + encodeURIComponent(timeframe));
-  if (experience) parts.push('f_E=' + encodeURIComponent(experience));
-  if (jobType) parts.push('f_JT=' + encodeURIComponent(jobType));
-  if (workplace) parts.push('f_WT=' + encodeURIComponent(workplace));
+  if (experience) parts.push('f_E=' + experience);
+  if (jobType) parts.push('f_JT=' + jobType);
+  if (workplace) parts.push('f_WT=' + workplace);
   if (sort) parts.push('sortBy=' + encodeURIComponent(sort));
 
   var url = LINKEDIN_SEARCH_BASE + parts.join('&');
@@ -1148,27 +1071,16 @@ function copyUrl() {
     setTimeout(function () { btn.textContent = 'Copy URL'; }, 2000);
     toast('URL copied to clipboard');
   };
-
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(url).then(onSuccess).catch(function () {
-      fallbackCopy(url);
-      onSuccess();
-    });
-  } else {
-    fallbackCopy(url);
-    onSuccess();
-  }
+    navigator.clipboard.writeText(url).then(onSuccess).catch(function () { fallbackCopy(url); onSuccess(); });
+  } else { fallbackCopy(url); onSuccess(); }
 }
 
 function fallbackCopy(text) {
   var ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.position = 'fixed';
-  ta.style.opacity = '0';
-  document.body.appendChild(ta);
-  ta.select();
-  document.execCommand('copy');
-  document.body.removeChild(ta);
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  document.execCommand('copy'); document.body.removeChild(ta);
 }
 
 /* ══════════════════════════════════════
@@ -1176,15 +1088,11 @@ function fallbackCopy(text) {
    ══════════════════════════════════════ */
 function toast(msg) {
   var el = document.getElementById('toast');
-  el.textContent = msg;
-  el.classList.add('show');
+  el.textContent = msg; el.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2200);
 }
 
-/* ══════════════════════════════════════
-   Help Collapsible Toggle
-   ══════════════════════════════════════ */
 function toggleHelp(trigger) {
   var content = document.getElementById(trigger.getAttribute('aria-controls'));
   if (!content) return;
@@ -1193,13 +1101,31 @@ function toggleHelp(trigger) {
   content.classList.toggle('open', !isOpen);
 }
 
+function fillGeoId(id) {
+  document.getElementById('geoId').value = id;
+  buildUrl();
+  // Close the geo help panel
+  var trigger = document.querySelector('[aria-controls="geoid-help"]');
+  if (trigger) { trigger.setAttribute('aria-expanded', 'false'); }
+  document.getElementById('geoid-help').classList.remove('open');
+  toast('Geo ID set to ' + id);
+}
+
 /* ══════════════════════════════════════
-   Event Listeners (delegated where possible)
+   Event Listeners
    ══════════════════════════════════════ */
 
 // Help collapsibles
 document.querySelectorAll('.help-trigger').forEach(function (trigger) {
   trigger.addEventListener('click', function () { toggleHelp(trigger); });
+});
+
+// Clickable Geo IDs
+document.querySelectorAll('.geo-id-btn').forEach(function (btn) {
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    fillGeoId(btn.dataset.geoid);
+  });
 });
 
 // Param fields — single handler via event delegation
@@ -1208,9 +1134,7 @@ document.querySelector('.params-grid').addEventListener('change', buildUrl);
 
 // Company list — delegated click and input handlers
 document.getElementById('companyList').addEventListener('input', function (e) {
-  if (e.target.dataset.index !== undefined) {
-    updateId(Number(e.target.dataset.index), e.target.value);
-  }
+  if (e.target.dataset.index !== undefined) { updateId(Number(e.target.dataset.index), e.target.value); }
 });
 document.getElementById('companyList').addEventListener('click', function (e) {
   var btn = e.target.closest('[data-remove]');
@@ -1219,9 +1143,7 @@ document.getElementById('companyList').addEventListener('click', function (e) {
 
 // Toolbar buttons
 document.getElementById('exportBtn').addEventListener('click', exportCompanies);
-document.getElementById('importBtn').addEventListener('click', function () {
-  document.getElementById('importFile').click();
-});
+document.getElementById('importBtn').addEventListener('click', function () { document.getElementById('importFile').click(); });
 document.getElementById('importFile').addEventListener('change', importCompanies);
 document.getElementById('clearBtn').addEventListener('click', clearAllCompanies);
 
@@ -1230,12 +1152,8 @@ document.getElementById('bulkAddBtn').addEventListener('click', bulkAddIds);
 
 // Single add
 document.getElementById('addBtn').addEventListener('click', addCompany);
-document.getElementById('addName').addEventListener('keydown', function (e) {
-  if (e.key === 'Enter') addCompany();
-});
-document.getElementById('addId').addEventListener('keydown', function (e) {
-  if (e.key === 'Enter') addCompany();
-});
+document.getElementById('addName').addEventListener('keydown', function (e) { if (e.key === 'Enter') addCompany(); });
+document.getElementById('addId').addEventListener('keydown', function (e) { if (e.key === 'Enter') addCompany(); });
 
 // Copy URL
 document.getElementById('copyBtn').addEventListener('click', copyUrl);

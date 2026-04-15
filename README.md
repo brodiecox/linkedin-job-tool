@@ -1,3 +1,7 @@
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://brodiecox.github.io/linkedin-job-tool/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/brodiecox/linkedin-job-tool)](https://github.com/brodiecox/linkedin-job-tool/stargazers)
+
 # LinkedIn Job Search URL Builder
 
 A browser-based tool for building custom LinkedIn job search URLs with bulk company filters and advanced parameters. Skip the tedious one-by-one company dropdown — paste IDs in bulk and go.
