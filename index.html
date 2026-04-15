@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="Build custom LinkedIn job search URLs with bulk company filters, time windows, and advanced parameters. Skip the tedious dropdown — paste company IDs and go.">
 <meta name="theme-color" content="#0c0c0e">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'unsafe-inline'; img-src data:; connect-src 'none'; form-action 'none';">
 <title>LinkedIn Job Search URL Builder</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -118,9 +119,9 @@ button, a, input, select, textarea {
 }
 .getting-started-title {
   font-family: var(--font-display);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  color: var(--text-muted);
+  color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 1.5px;
   margin-bottom: 10px;
@@ -173,9 +174,9 @@ button, a, input, select, textarea {
 .section { margin-bottom: 28px; position: relative; }
 .section-title {
   font-family: var(--font-display);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  color: var(--text-muted);
+  color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 1.5px;
   margin-bottom: 12px;
@@ -545,7 +546,7 @@ label {
   <!-- Privacy Banner -->
   <div class="privacy-banner" role="status">
     <span class="shield" aria-hidden="true">&#128274;</span>
-    100% private — this tool runs entirely in your browser. Nothing is sent to any server.
+    100% private — this tool runs entirely in your browser. No data is collected or sent to any server. Fonts are loaded from Google Fonts.
   </div>
 
   <!-- Getting Started -->
@@ -772,6 +773,12 @@ label {
 
 <script>
 'use strict';
+
+/* ── Clickjacking protection ── */
+if (window.top !== window.self) {
+  document.body.innerHTML = '';
+  window.top.location = window.self.location;
+}
 
 /* ══════════════════════════════════════
    Constants & State
