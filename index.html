@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Build custom LinkedIn job search URLs with bulk company filters, time windows, and advanced parameters. Skip the tedious dropdown — paste company IDs and go.">
+<meta name="theme-color" content="#0c0c0e">
+<title>LinkedIn Job Search URL Builder</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0c0c0e;
+  --bg-secondary: #121214;
+  --bg-tertiary: #18181b;
+  --bg-elevated: #1e1e22;
+  --border: #2a2a2e;
+  --border-subtle: #1f1f23;
+  --text-primary: #e8e8ec;
+  --text-secondary: #9898a0;
+  --text-muted: #58585f;
+  --accent: #22d3ee;
+  --accent-dim: rgba(34, 211, 238, 0.12);
+  --accent-border: rgba(34, 211, 238, 0.25);
+  --success: #34d399;
+  --success-dim: rgba(52, 211, 153, 0.12);
+  --success-border: rgba(52, 211, 153, 0.25);
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --danger-dim: rgba(248, 113, 113, 0.1);
+  --font-mono: 'IBM Plex Mono', 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
+  --radius: 8px;
+  --radius-sm: 5px;
+  --transition: 150ms ease;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-mono);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection { background: var(--accent); color: var(--bg-primary); }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ── Layout ── */
+.app { max-width: 800px; margin: 0 auto; padding: 32px 20px 80px; }
+
+/* ── Header ── */
+.header { margin-bottom: 36px; position: relative; }
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-border), transparent 80%);
+}
+.header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 4vw, 30px);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.8px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.header h1 span { color: var(--accent); }
+.header p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 560px;
+}
+
+/* ── Getting Started ── */
+.getting-started {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 28px;
+}
+.getting-started-title {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+.getting-started ol {
+  list-style: none;
+  counter-reset: steps;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.getting-started li {
+  counter-increment: steps;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.getting-started li::before {
+  content: counter(steps);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 10px;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.getting-started .autosave-note {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.getting-started .autosave-note .save-icon {
+  color: var(--success);
+  font-size: 12px;
+}
+
+/* ── Sections ── */
+.section { margin-bottom: 28px; }
+.section-title {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title .count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+/* ── Help Icon & Panel ── */
+.help-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.help-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.help-icon:hover {
+  background: rgba(34, 211, 238, 0.2);
+  border-color: var(--accent);
+}
+.help-icon[aria-expanded="true"] {
+  background: var(--accent);
+  color: var(--bg-primary);
+  border-color: var(--accent);
+}
+.help-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 100;
+  min-width: 340px;
+  max-width: min(460px, calc(100vw - 40px));
+  background: var(--bg-elevated);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+.help-panel.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.help-panel strong { color: var(--text-primary); font-weight: 600; }
+.help-panel code {
+  background: var(--bg-tertiary);
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: var(--success);
+  font-size: 11px;
+}
+.help-panel .divider {
+  border-top: 1px solid var(--border-subtle);
+  margin: 10px 0;
+  padding-top: 10px;
+}
+
+/* ── Label with help ── */
+.label-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.label-row label {
+  margin-bottom: 0;
+}
+
+/* ── Form Controls ── */
+input, select, textarea {
+  font-family: var(--font-mono);
+  width: 100%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+input::placeholder, textarea::placeholder { color: var(--text-muted); }
+select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2358585f' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+
+label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+/* ── Params Grid ── */
+.params-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+/* ── Company List ── */
+.company-list {
+  max-height: 460px;
+  overflow-y: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-subtle);
+}
+.company-row {
+  display: grid;
+  grid-template-columns: 1fr 130px 28px;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--bg-primary);
+  transition: background var(--transition);
+}
+.company-row:last-child { border-bottom: none; }
+.company-row:nth-child(odd) { background: var(--bg-secondary); }
+.company-row:nth-child(even) { background: var(--bg-tertiary); }
+.company-row:hover { background: var(--bg-elevated); }
+.company-name {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.company-name.has-id { color: var(--success); }
+.company-name.no-id { color: var(--text-secondary); }
+.company-link {
+  font-size: 10px;
+  color: var(--accent);
+  margin-left: 8px;
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity var(--transition);
+}
+.company-link:hover { opacity: 1; }
+.id-input {
+  padding: 5px 8px !important;
+  border-radius: var(--radius-sm) !important;
+  font-size: 12px !important;
+  text-align: center;
+}
+.id-input.filled { border-color: var(--success-border) !important; background: var(--success-dim) !important; }
+
+/* ── Buttons ── */
+.btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+  border: 1px solid;
+  white-space: nowrap;
+}
+.btn-accent { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
+.btn-accent:hover { background: rgba(34, 211, 238, 0.2); border-color: var(--accent); }
+.btn-success { background: var(--success-dim); border-color: var(--success-border); color: var(--success); }
+.btn-success:hover { background: rgba(52, 211, 153, 0.2); border-color: var(--success); }
+.btn-danger { background: var(--danger-dim); border-color: transparent; color: var(--danger); }
+.btn-danger:hover { border-color: rgba(248, 113, 113, 0.3); }
+.btn-ghost { background: transparent; border-color: var(--border); color: var(--text-secondary); }
+.btn-ghost:hover { border-color: var(--text-muted); color: var(--text-primary); }
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 15px;
+  padding: 0;
+  line-height: 1;
+  font-family: var(--font-mono);
+  transition: color var(--transition);
+}
+.icon-btn:hover { color: var(--danger); }
+
+/* ── Action rows ── */
+.add-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.add-row input { font-size: 12px; padding: 8px 12px; }
+.bulk-row { margin-bottom: 12px; }
+.bulk-row textarea {
+  font-size: 12px;
+  padding: 8px 12px;
+  min-height: 42px;
+  max-height: 100px;
+  resize: vertical;
+}
+.toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+/* ── Output ── */
+.output-box {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.output-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.url-display {
+  background: var(--bg-primary);
+  border-radius: var(--radius);
+  padding: 14px;
+  font-size: 11px;
+  line-height: 1.7;
+  word-break: break-all;
+  font-family: var(--font-mono);
+  user-select: all;
+  cursor: text;
+  min-height: 44px;
+  border: 1px solid var(--border-subtle);
+}
+.url-display.active { color: var(--success); border-color: var(--success-border); }
+.url-display.empty { color: var(--text-muted); font-style: italic; border-color: transparent; }
+.includes-text { font-size: 10px; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+
+/* ── Toast ── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--success-border);
+  color: var(--success);
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 200ms ease;
+  pointer-events: none;
+  z-index: 1000;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* ── Footer ── */
+.footer {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.footer a { color: var(--accent); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .app { padding: 20px 16px 60px; }
+  .params-grid { grid-template-columns: 1fr; }
+  .add-row { grid-template-columns: 1fr; }
+  .company-row { grid-template-columns: 1fr 100px 28px; gap: 6px; }
+  .output-header { flex-direction: column; align-items: flex-start; }
+  .help-panel { left: auto; right: 0; min-width: 280px; }
+  .getting-started { padding: 14px 16px; }
+}
+
+/* ── Animations ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.getting-started { animation: fadeIn 400ms ease both; }
+.section { animation: fadeIn 400ms ease both; }
+.section:nth-child(1) { animation-delay: 50ms; }
+.section:nth-child(2) { animation-delay: 100ms; }
+.section:nth-child(3) { animation-delay: 150ms; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Header -->
+  <header class="header">
+    <h1>LinkedIn Job Search <span>URL Builder</span></h1>
+    <p>Build custom job search URLs with bulk company filters. Skip the tedious one-by-one dropdown.</p>
+  </header>
+
+  <!-- Getting Started -->
+  <div class="getting-started">
+    <div class="getting-started-title">How it works</div>
+    <ol>
+      <li>Set your search filters below — keywords, location, job type, and more</li>
+      <li>Add target companies by pasting their LinkedIn numeric IDs (bulk or one at a time)</li>
+      <li>Copy the generated URL or open it directly in LinkedIn</li>
+    </ol>
+    <div class="autosave-note">
+      <span class="save-icon" aria-hidden="true">&#10003;</span>
+      Your settings and company list auto-save in your browser — they'll be here when you come back.
+    </div>
+  </div>
+
+  <!-- Search Parameters -->
+  <div class="section">
+    <div class="section-title">Search Parameters</div>
+    <div class="params-grid">
+      <div>
+        <label for="keyword">Keywords</label>
+        <input id="keyword" type="text" placeholder='e.g. "product manager"'>
+      </div>
+      <div>
+        <label for="timeframe">Time Posted</label>
+        <select id="timeframe">
+          <option value="">Any time</option>
+          <option value="r3600">1 hour</option>
+          <option value="r7200">2 hours</option>
+          <option value="r21600">6 hours</option>
+          <option value="r86400">24 hours</option>
+          <option value="r604800">Past week</option>
+          <option value="r2592000">Past month</option>
+        </select>
+      </div>
+      <div>
+        <div class="label-row">
+          <label for="geoId">Location (Geo ID)</label>
+          <div class="help-wrap">
+            <button class="help-icon" aria-expanded="false" aria-controls="geoid-help" aria-label="Show common Geo IDs" title="Common Geo IDs">?</button>
+            <div class="help-panel" id="geoid-help" role="region">
+              <p><strong>Countries:</strong></p>
+              <p><code>101452733</code> Australia &middot; <code>101165590</code> United Kingdom &middot; <code>103644278</code> United States &middot; <code>101174742</code> Canada &middot; <code>102095887</code> New Zealand &middot; <code>102713980</code> India &middot; <code>101282230</code> Germany</p>
+              <div class="divider">
+                <p><strong>Cities:</strong></p>
+                <p><code>100009818</code> Sydney &middot; <code>103116251</code> Melbourne &middot; <code>104769905</code> Brisbane &middot; <code>105243367</code> Perth &middot; <code>102257491</code> London &middot; <code>102571732</code> New York &middot; <code>100727388</code> San Francisco</p>
+              </div>
+              <div class="divider">
+                <p>Find more: search LinkedIn Jobs for a location, then copy the <code>geoId=</code> value from the URL.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input id="geoId" type="text" placeholder="e.g. 101452733">
+      </div>
+      <div>
+        <label for="experienceLevel">Experience Level</label>
+        <select id="experienceLevel">
+          <option value="">Any</option>
+          <option value="1">Internship</option>
+          <option value="2">Entry level</option>
+          <option value="3">Associate</option>
+          <option value="4">Mid-Senior level</option>
+          <option value="5">Director</option>
+          <option value="6">Executive</option>
+        </select>
+      </div>
+      <div>
+        <label for="jobType">Job Type</label>
+        <select id="jobType">
+          <option value="">Any</option>
+          <option value="F">Full-time</option>
+          <option value="P">Part-time</option>
+          <option value="C">Contract</option>
+          <option value="T">Temporary</option>
+          <option value="I">Internship</option>
+        </select>
+      </div>
+      <div>
+        <label for="workplaceType">Workplace</label>
+        <select id="workplaceType">
+          <option value="">Any</option>
+          <option value="1">On-site</option>
+          <option value="2">Remote</option>
+          <option value="3">Hybrid</option>
+        </select>
+      </div>
+      <div>
+        <label for="sortBy">Sort By</label>
+        <select id="sortBy">
+          <option value="">Most relevant</option>
+          <option value="DD">Most recent</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Companies -->
+  <div class="section">
+    <div class="section-title">
+      Company Filter
+      <span class="count" id="companyCount">0 / 0</span>
+      <div class="help-wrap">
+        <button class="help-icon" aria-expanded="false" aria-controls="companyid-help" aria-label="How to find company IDs" title="How to find company IDs">?</button>
+        <div class="help-panel" id="companyid-help" role="region">
+          <p><strong>Option A — From the company filter (fastest):</strong></p>
+          <p>1. Go to LinkedIn Jobs and type a company name into the <strong>Company</strong> filter dropdown</p>
+          <p>2. Select it, then look at the URL — copy the number after <code>f_C=</code></p>
+          <p>3. Paste it here. Repeat for each company.</p>
+          <div class="divider">
+            <p><strong>Option B — From the company page:</strong></p>
+            <p>1. Visit the company's LinkedIn page</p>
+            <p>2. Click <strong>"See all jobs"</strong> or <strong>"See all employees"</strong></p>
+            <p>3. The ID appears in the URL after <code>f_C=</code> or <code>currentCompany=</code></p>
+          </div>
+          <div class="divider">
+            <p><strong>Option C — Direct URL check:</strong></p>
+            <p>Visit <code>linkedin.com/company/[ID]</code> to verify any numeric ID — it redirects to the company page.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <button class="btn btn-ghost" id="exportBtn" title="Export company list as JSON">Export</button>
+      <button class="btn btn-ghost" id="importBtn" title="Import company list from JSON">Import</button>
+      <input type="file" id="importFile" accept=".json" style="display:none">
+      <button class="btn btn-danger" id="clearBtn" title="Remove all companies">Clear All</button>
+    </div>
+
+    <!-- Bulk add -->
+    <div class="bulk-row">
+      <label for="bulkIds">Bulk Add IDs <span style="color:var(--text-muted);text-transform:none;letter-spacing:0;font-weight:400">(comma-separated)</span></label>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:8px">
+        <textarea id="bulkIds" rows="1" placeholder="e.g. 8900,42797345,1319529,44793"></textarea>
+        <button class="btn btn-accent" id="bulkAddBtn" style="align-self:end">Add All</button>
+      </div>
+    </div>
+
+    <!-- Single add -->
+    <div class="add-row">
+      <input id="addName" placeholder="Company name">
+      <input id="addSlug" placeholder="LinkedIn slug (optional)">
+      <button class="btn btn-accent" id="addBtn">+ Add</button>
+    </div>
+
+    <!-- Company list -->
+    <div class="company-list" id="companyList" role="list" aria-label="Company list">
+      <div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12px">
+        No companies added yet. Use Bulk Add or + Add above.
+      </div>
+    </div>
+  </div>
+
+  <!-- Output -->
+  <div class="section">
+    <div class="output-box">
+      <div class="output-header">
+        <div class="section-title" style="margin-bottom:0">Generated URL</div>
+        <div class="btn-group">
+          <button class="btn btn-success" id="copyBtn">Copy URL</button>
+          <a class="btn btn-accent" id="openBtn" href="#" target="_blank" rel="noopener noreferrer" style="display:none;text-decoration:none">Open in LinkedIn &#8599;</a>
+        </div>
+      </div>
+      <div class="url-display empty" id="urlDisplay" aria-live="polite">
+        Configure your search parameters and add company IDs to generate a URL
+      </div>
+      <p class="includes-text" id="includesText"></p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>This tool runs entirely in your browser. Company data is stored in localStorage — nothing is sent to any server.</p>
+    <p style="margin-top:6px">
+      <a href="https://github.com/brodiecox/linkedin-job-tool" target="_blank" rel="noopener noreferrer">View on GitHub</a> ·
+      Not affiliated with LinkedIn.
+    </p>
+  </footer>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+
+/* ══════════════════════════════════════
+   Constants & State
+   ══════════════════════════════════════ */
+var STORAGE_KEY = 'li-search-builder';
+var PARAM_FIELDS = ['keyword', 'timeframe', 'geoId', 'experienceLevel', 'jobType', 'workplaceType', 'sortBy'];
+var LINKEDIN_SEARCH_BASE = 'https://www.linkedin.com/jobs/search/?';
+
+var companies = [];
+var toastTimer = null;
+
+/* ══════════════════════════════════════
+   Utilities
+   ══════════════════════════════════════ */
+
+/** Sanitise a string for safe HTML insertion. */
+function esc(str) {
+  var div = document.createElement('div');
+  div.textContent = str || '';
+  return div.innerHTML;
+}
+
+/** Strip everything except digits from a string. */
+function sanitizeId(val) {
+  return String(val || '').replace(/\D/g, '');
+}
+
+/** Build a safe LinkedIn company URL from a slug or numeric ID. */
+function companyUrl(slugOrId) {
+  return 'https://www.linkedin.com/company/' + encodeURIComponent(slugOrId);
+}
+
+/* ══════════════════════════════════════
+   Persistence
+   ══════════════════════════════════════ */
+function loadState() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    var data = JSON.parse(raw);
+    if (Array.isArray(data.companies)) {
+      companies = data.companies.map(function (c) {
+        return {
+          name: String(c.name || ''),
+          slug: String(c.slug || ''),
+          id: sanitizeId(c.id),
+        };
+      });
+    }
+    if (data.params) {
+      PARAM_FIELDS.forEach(function (f) {
+        var el = document.getElementById(f);
+        if (el && data.params[f] !== undefined) el.value = data.params[f];
+      });
+    }
+  } catch (e) {
+    companies = [];
+  }
+}
+
+function saveState() {
+  try {
+    var params = {};
+    PARAM_FIELDS.forEach(function (f) {
+      var el = document.getElementById(f);
+      if (el) params[f] = el.value;
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ companies: companies, params: params }));
+  } catch (e) { /* localStorage full or unavailable */ }
+}
+
+/* ══════════════════════════════════════
+   Render
+   ══════════════════════════════════════ */
+function render() {
+  var list = document.getElementById('companyList');
+  var withIds = companies.filter(function (c) { return c.id; });
+  document.getElementById('companyCount').textContent = withIds.length + ' / ' + companies.length;
+
+  if (companies.length === 0) {
+    list.innerHTML = '<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12px">' +
+      'No companies added yet. Use Bulk Add or + Add above.</div>';
+    buildUrl();
+    return;
+  }
+
+  var rows = companies.map(function (c, i) {
+    var hasId = !!c.id;
+    var nameClass = 'company-name ' + (hasId ? 'has-id' : 'no-id');
+    var inputClass = 'id-input' + (hasId ? ' filled' : '');
+
+    var linkHtml = '';
+    if (c.slug) {
+      linkHtml = '<a class="company-link" href="' + esc(companyUrl(c.slug)) + '" target="_blank" rel="noopener noreferrer">open&nbsp;&#8599;</a>';
+    } else if (c.id) {
+      linkHtml = '<a class="company-link" href="' + esc(companyUrl(c.id)) + '" target="_blank" rel="noopener noreferrer">verify&nbsp;&#8599;</a>';
+    }
+
+    return '<div class="company-row" role="listitem">' +
+      '<div style="min-width:0;overflow:hidden">' +
+        '<span class="' + nameClass + '" title="' + esc(c.name) + '">' + esc(c.name) + '</span>' +
+        linkHtml +
+      '</div>' +
+      '<input class="' + inputClass + '" value="' + esc(c.id) + '" placeholder="paste ID" ' +
+        'data-index="' + i + '" aria-label="Company ID for ' + esc(c.name) + '">' +
+      '<button class="icon-btn" data-remove="' + i + '" title="Remove ' + esc(c.name) + '" ' +
+        'aria-label="Remove ' + esc(c.name) + '">&times;</button>' +
+    '</div>';
+  });
+
+  list.innerHTML = rows.join('');
+  buildUrl();
+}
+
+/* ══════════════════════════════════════
+   Company CRUD
+   ══════════════════════════════════════ */
+function updateId(index, val) {
+  var cleaned = sanitizeId(val);
+  companies[index].id = cleaned;
+  saveState();
+
+  var input = document.querySelectorAll('.id-input')[index];
+  if (input) {
+    input.classList.toggle('filled', !!cleaned);
+    if (input.value !== cleaned) input.value = cleaned;
+  }
+  var nameEl = document.querySelectorAll('.company-name')[index];
+  if (nameEl) {
+    nameEl.classList.toggle('has-id', !!cleaned);
+    nameEl.classList.toggle('no-id', !cleaned);
+  }
+
+  var withIds = companies.filter(function (c) { return c.id; });
+  document.getElementById('companyCount').textContent = withIds.length + ' / ' + companies.length;
+  buildUrl();
+}
+
+function removeCompany(index) {
+  companies.splice(index, 1);
+  saveState();
+  render();
+}
+
+function addCompany() {
+  var nameInput = document.getElementById('addName');
+  var slugInput = document.getElementById('addSlug');
+  var name = nameInput.value.trim();
+  var slug = slugInput.value.trim();
+  if (!name) return;
+
+  companies.push({ name: name, slug: slug, id: '' });
+  nameInput.value = '';
+  slugInput.value = '';
+  saveState();
+  render();
+  toast('Added "' + name + '"');
+}
+
+function bulkAddIds() {
+  var raw = document.getElementById('bulkIds').value;
+  var ids = raw.split(/[,\s]+/).map(sanitizeId).filter(Boolean);
+  var unique = [];
+  var seen = {};
+  ids.forEach(function (id) { if (!seen[id]) { seen[id] = true; unique.push(id); } });
+
+  var existing = {};
+  companies.forEach(function (c) { if (c.id) existing[c.id] = true; });
+  var added = 0;
+
+  unique.forEach(function (id) {
+    if (!existing[id]) {
+      companies.push({ name: 'Company #' + id, slug: '', id: id });
+      existing[id] = true;
+      added++;
+    }
+  });
+
+  if (added > 0) {
+    document.getElementById('bulkIds').value = '';
+    saveState();
+    render();
+    toast('Added ' + added + ' company ID' + (added > 1 ? 's' : ''));
+  } else {
+    toast('No new IDs to add');
+  }
+}
+
+function clearAllCompanies() {
+  if (companies.length === 0) return;
+  if (!confirm('Remove all ' + companies.length + ' companies?')) return;
+  companies = [];
+  saveState();
+  render();
+  toast('All companies cleared');
+}
+
+/* ══════════════════════════════════════
+   Import / Export
+   ══════════════════════════════════════ */
+function exportCompanies() {
+  if (companies.length === 0) { toast('Nothing to export'); return; }
+  var data = JSON.stringify(companies, null, 2);
+  var blob = new Blob([data], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'linkedin-companies.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('Exported company list');
+}
+
+function importCompanies(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+
+  if (file.size > 1048576) {
+    toast('File too large (max 1 MB)');
+    event.target.value = '';
+    return;
+  }
+
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    try {
+      var data = JSON.parse(e.target.result);
+      if (!Array.isArray(data)) throw new Error('Expected an array');
+
+      var existing = {};
+      companies.forEach(function (c) { if (c.id) existing[c.id] = true; });
+      var added = 0;
+
+      data.forEach(function (item) {
+        if (typeof item !== 'object' || item === null) return;
+        var id = sanitizeId(item.id);
+        var name = String(item.name || '') || (id ? 'Company #' + id : 'Unknown');
+        var slug = String(item.slug || '');
+        if (id && existing[id]) return;
+        companies.push({ name: name, slug: slug, id: id });
+        if (id) existing[id] = true;
+        added++;
+      });
+
+      saveState();
+      render();
+      toast('Imported ' + added + ' compan' + (added === 1 ? 'y' : 'ies'));
+    } catch (err) {
+      toast('Invalid JSON file');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+/* ══════════════════════════════════════
+   URL Builder
+   ══════════════════════════════════════ */
+function buildUrl() {
+  var keyword = document.getElementById('keyword').value.trim();
+  var timeframe = document.getElementById('timeframe').value;
+  var geoId = document.getElementById('geoId').value.trim().replace(/\D/g, '');
+  var experience = document.getElementById('experienceLevel').value;
+  var jobType = document.getElementById('jobType').value;
+  var workplace = document.getElementById('workplaceType').value;
+  var sort = document.getElementById('sortBy').value;
+  var withIds = companies.filter(function (c) { return c.id; });
+  var fC = withIds.map(function (c) { return c.id; }).join(',');
+
+  saveState();
+
+  var params = new URLSearchParams();
+  if (keyword) params.set('keywords', keyword);
+  if (fC) params.set('f_C', fC);
+  if (geoId) params.set('geoId', geoId);
+  if (timeframe) params.set('f_TPR', timeframe);
+  if (experience) params.set('f_E', experience);
+  if (jobType) params.set('f_JT', jobType);
+  if (workplace) params.set('f_WT', workplace);
+  if (sort) params.set('sortBy', sort);
+
+  var url = LINKEDIN_SEARCH_BASE + params.toString();
+
+  var display = document.getElementById('urlDisplay');
+  var openBtn = document.getElementById('openBtn');
+  var includesText = document.getElementById('includesText');
+  var hasContent = keyword || fC || geoId || timeframe;
+
+  if (!hasContent) {
+    display.textContent = 'Configure your search parameters and add company IDs to generate a URL';
+    display.className = 'url-display empty';
+    openBtn.style.display = 'none';
+    includesText.textContent = '';
+  } else {
+    display.textContent = url;
+    display.className = 'url-display active';
+    openBtn.style.display = 'inline-flex';
+    openBtn.href = url;
+    includesText.textContent = withIds.length > 0
+      ? withIds.length + ' compan' + (withIds.length === 1 ? 'y' : 'ies') + ': ' + withIds.map(function (c) { return c.name; }).join(', ')
+      : 'No company filter applied';
+  }
+
+  return url;
+}
+
+/* ══════════════════════════════════════
+   Clipboard
+   ══════════════════════════════════════ */
+function copyUrl() {
+  var url = buildUrl();
+  var onSuccess = function () {
+    var btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    setTimeout(function () { btn.textContent = 'Copy URL'; }, 2000);
+    toast('URL copied to clipboard');
+  };
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(onSuccess).catch(function () {
+      fallbackCopy(url);
+      onSuccess();
+    });
+  } else {
+    fallbackCopy(url);
+    onSuccess();
+  }
+}
+
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+}
+
+/* ══════════════════════════════════════
+   UI Helpers
+   ══════════════════════════════════════ */
+function toast(msg) {
+  var el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2200);
+}
+
+/* ══════════════════════════════════════
+   Help Panel Toggle
+   ══════════════════════════════════════ */
+function closeAllHelpPanels(except) {
+  document.querySelectorAll('.help-icon').forEach(function (icon) {
+    if (icon === except) return;
+    icon.setAttribute('aria-expanded', 'false');
+    var panel = document.getElementById(icon.getAttribute('aria-controls'));
+    if (panel) panel.classList.remove('open');
+  });
+}
+
+function toggleHelpPanel(icon) {
+  var panelId = icon.getAttribute('aria-controls');
+  var panel = document.getElementById(panelId);
+  if (!panel) return;
+
+  var isOpen = panel.classList.contains('open');
+  closeAllHelpPanels(isOpen ? null : icon);
+
+  icon.setAttribute('aria-expanded', String(!isOpen));
+  panel.classList.toggle('open', !isOpen);
+}
+
+// Close help panels when clicking outside
+document.addEventListener('click', function (e) {
+  if (!e.target.closest('.help-wrap')) {
+    closeAllHelpPanels(null);
+  }
+});
+
+/* ══════════════════════════════════════
+   Event Listeners (delegated where possible)
+   ══════════════════════════════════════ */
+
+// Help icons
+document.querySelectorAll('.help-icon').forEach(function (icon) {
+  icon.addEventListener('click', function (e) {
+    e.stopPropagation();
+    toggleHelpPanel(icon);
+  });
+});
+
+// Param fields — single handler via event delegation
+document.querySelector('.params-grid').addEventListener('input', buildUrl);
+document.querySelector('.params-grid').addEventListener('change', buildUrl);
+
+// Company list — delegated click and input handlers
+document.getElementById('companyList').addEventListener('input', function (e) {
+  if (e.target.dataset.index !== undefined) {
+    updateId(Number(e.target.dataset.index), e.target.value);
+  }
+});
+document.getElementById('companyList').addEventListener('click', function (e) {
+  var btn = e.target.closest('[data-remove]');
+  if (btn) removeCompany(Number(btn.dataset.remove));
+});
+
+// Toolbar buttons
+document.getElementById('exportBtn').addEventListener('click', exportCompanies);
+document.getElementById('importBtn').addEventListener('click', function () {
+  document.getElementById('importFile').click();
+});
+document.getElementById('importFile').addEventListener('change', importCompanies);
+document.getElementById('clearBtn').addEventListener('click', clearAllCompanies);
+
+// Bulk add
+document.getElementById('bulkAddBtn').addEventListener('click', bulkAddIds);
+
+// Single add
+document.getElementById('addBtn').addEventListener('click', addCompany);
+document.getElementById('addName').addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') addCompany();
+});
+document.getElementById('addSlug').addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') addCompany();
+});
+
+// Copy URL
+document.getElementById('copyBtn').addEventListener('click', copyUrl);
+
+/* ══════════════════════════════════════
+   Init
+   ══════════════════════════════════════ */
+loadState();
+render();
+</script>
+
+</body>
+</html>
